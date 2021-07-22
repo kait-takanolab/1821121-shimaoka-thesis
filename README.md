@@ -1,12 +1,11 @@
-# 1821121-shimaoka-thesis
-thesis
 
-卒業研究の発表用PP  
-https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_sotsuken.pptx
-  
-実行について  
-各必要ファイルをDownload  
-jsonファイルの位置でコマンドプロンプトなどnpmが実行できるターミナルを起動  
-npm install
-を実行  
-htmlファイルより実行可能
+<h2 align="center">1821121_shimaoka_thesis</h2>
+
+
+### <img src="https://icooon-mono.com/i/icon_12063/icon_120631_64.png" height="30px;" /> ゼミ発表用スライド
+
+- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_sotsuken.pptx
+
+### <img src="https://icooon-mono.com/i/icon_12063/icon_120631_64.png" height="30px;" /> 中間発表用スライド
+
+- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_tyuukan.pptx
