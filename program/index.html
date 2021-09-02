@@ -39,16 +39,21 @@
     <!--Python,Javascriptからxmlを通さずに変換したい-->
   
     </br>
-
-    <button onclick="showCodeJS()">Show JavaScript</button>
+  
     <button onclick="showCodePy()">Show Python</button>
-    <button onclick="runCodeJS()">Run JavaScript</button>
     <button onclick="runCodeJS()">Run Python</button>
     <button onclick="generatepy()">Generate code Python</button>
-    <button onclick="generateJS()">Generate code JavaScript</button>
+    <button onclick="clearcode()">clear code</button>
     <button onclick="stringsinarray()">inarraytest</button>
     <button onclick="que_area_back()">question1</button>
     <button onclick="make_question()">question2</button>
+    <button onclick="make_question2()">question3</button>
+    <button onclick="test()">t</button>
+    <!--
+        <button onclick="showCodeJS()">Show JavaScript</button>
+        <button onclick="runCodeJS()">Run JavaScript</button>
+        <button onclick="generateJS()">Generate code JavaScript</button>
+    -->
   </p>  
 
 
@@ -56,7 +61,7 @@
   <main>
     <div id="blocklyDiv"  class="left"></div>
     <textarea id="question_area" readonly class="right"></textarea>
-    <textarea id="output" readonly class="right"></textarea>
+    <textarea id="output" class="right"></textarea>
   </main>
 
 
