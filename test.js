@@ -58,6 +58,11 @@ function runCodePy() {
     }
 }
 
+//outputワークスペースからコードを削除する
+function clearcode(){
+    document.getElementById('output').value = '';
+}
+
 //BlockからPythonコードに変換
 function generatepy() {
     // Generate JavaScript code and run it.
@@ -72,7 +77,10 @@ function generatepy() {
         return;
     }
     document.getElementById('output').value = code;
+    out_str(code);
 }
+
+
 
 //BlockからJavaScriptコードに変換
 function generateJS() {
@@ -158,9 +166,9 @@ function loadBlock(xml) { // xml is the same block xml you stored
 }
 
 //文字列を配列に変換
-function stringsinarray() {
+function stringsinarray(code) {
 //    var k = /[ \n]/g; //正規表現, 半角スペースと改行を含む場合
-    var question = q_code;
+    var question = code;
     var que_ary = [];
     que_ary = question.split(" ");
 //    document.getElementById('output').innerHTML = que_ary;
@@ -181,7 +189,7 @@ function getRandomInt(max) {
 //穴あき個所を作成する関数
 function anaaki(code){
     code[getRandomInt(code.length)] = "[ question ]";
-    return code
+    return code;
 }
 
 /*配列から穴埋めを作成する,sitai
@@ -189,12 +197,12 @@ function anaaki(code){
     現在半角スペースを区切り文字として文字列を配列に変換している関係上、改行では区切られない
     →例えばelse:などの次に改行し、次の行で書き始めた最後の単語までを一つとして分かれている
     →改行を区切り文字として含めるとインデントが消える
-    print()のように関数が含まれる場合に、print("hello world")の”print("hello”までを単語として認識している
+    print()のように関数が含まれる場合に、 print("hello world") のうち  print("hello  までを単語として認識している
     →穴埋めを生成するにあたって、()などを認識して区切りたい
     →（）は配列（文章）に残しておきたい
 */
 function make_question() {
-    que_ary = stringsinarray(); //文字列を配列に変換する関数を呼び出し
+    que_ary = stringsinarray(q_code); //文字列を配列に変換する関数を呼び出し
 
     //配列のランダムな位置の単語をを入れ替え, 複数回実行すれば複数個所を変換
 //    que_ary[getRandomInt(que_ary.length)] = "[ question ]";
@@ -203,6 +211,18 @@ function make_question() {
     que_ary = join_str(que_ary); //配列を文字列に変換する関数を呼び出し
     document.getElementById('question_area').innerHTML = que_ary; //結果を表示
 //    document.getElementById('output').innerHTML = q_code;
+}
+
+//question3
+function make_question2() {
+    var que_ary = stringsinarray(o_code); //文字列を配列に変換する関数を呼び出し
+
+    //配列のランダムな位置の単語をを入れ替え, 複数回実行すれば複数個所を変換
+//    que_ary[getRandomInt(que_ary.length)] = "[ question ]";
+    que_ary = anaaki(que_ary);
+
+    que_ary = join_str(que_ary); //配列を文字列に変換する関数を呼び出し
+    document.getElementById('output').value = que_ary; //結果を表示
 }
 
 //question1 問題文を隠していない元の形に戻す
@@ -214,4 +234,10 @@ function que_area_back(){
 function question_str(code){
     q_code = code;
     return q_code;
+}
+
+//outputareaの内容を保存する
+function out_str(code){
+    o_code = code;
+    return o_code;
 }
