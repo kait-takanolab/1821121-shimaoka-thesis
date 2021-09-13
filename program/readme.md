@@ -27,11 +27,11 @@ Google Bloclyを利用するためのモジュールフォルダです。
 画面右上のエリアと画面右下のエリアに表示されたコードが一致しているかを判断します。 
 -Show Python  
 Blocklyにて構成されたブロックから、Pythonのコードに変換し、画面上部よりポップアウトにて表示します。  
--Run Python 
+-Run Python 　
 Blocklyにて構成されたブロックから、Pythonのコードに変換し、画面上部よりポップアウトにて、実行結果を表示します。  
--Generate code Python 
+-Generate code Python 　
 Blocklyにて構成されたブロックから、Pythonのコードに変換し、画面右下に表示します。 
--clear code 
+-clear code 　
 画面右下の空間のコードを削除します。  
 -question1  
 画面右上のコードが穴埋め状態の時、通常の表示にします。 
@@ -41,9 +41,9 @@ Blocklyにて構成されたブロックから、Pythonのコードに変換し�
 ### BlocklyにてBlockを利用するボタン
 -Loops  
 繰り返しの命令ブロックを利用できます  
--Math 
+-Math   
 数字情報を利用できます 
--Text 
+-Text   
 文字情報を利用できます 
 -Lists  
 配列情報を利用できます 
