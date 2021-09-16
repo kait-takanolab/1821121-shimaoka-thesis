@@ -5,18 +5,18 @@
 本プログラムでは Google Blockly を利用しています。　
 Node.js によるパッケージ管理システムを利用するため、インストールが必要です。　
 各プログラムと Node.js をインストール後コマンドプロンプトにて
--npm install
+- npm install
 と入力することで、パッケージのインストールが自動で実行されます。
 
 ## プログラムに必要なファイル説明
 
--index.html
+- index.html
 画面構成、初期ブロックの情報、その他フロントサイド側の情報の多くが書かれたファイルです。
--main.css
+- main.css
 画面構成のサイズや色などを設定するファイルです。
--test.js
+- test.js
 Javascript のコードを書かれたファイルです。
--node_modules
+- node_modules
 Google Blocly を利用するためのモジュールフォルダです。
 
 ## 機能説明(2021/09/13 時点)
@@ -25,35 +25,35 @@ Google Blocly を利用するためのモジュールフォルダです。
 
 ### Blockly を操作するボタン
 
--ファイルを選択するボタン
+- ファイルを選択するボタン
 各 PC 内の xml にて保存された Blockly のブロック情報を選択し、画面右上のエリアにコードを表示します。Python。
--checking answer
+- checking answer
 画面右上のエリアと画面右下のエリアに表示されたコードが一致しているかを判断します。
--Show Python
+- Show Python
 Blockly にて構成されたブロックから、Python のコードに変換し、画面上部よりポップアウトにて表示します。
--Run Python
+- Run Python
 Blockly にて構成されたブロックから、Python のコードに変換し、画面上部よりポップアウトにて、実行結果を表示します。
--Generate code Python
+- Generate code Python
 Blockly にて構成されたブロックから、Python のコードに変換し、画面右下に表示します。
--clear code
+- clear code
 画面右下の空間のコードを削除します。
--question1
+- question1
 画面右上のコードが穴埋め状態の時、通常の表示にします。
--question2
+- question2
 画面右上のコードの情報の一部の表示を変換して、穴埋め状態にします。
 
 ###　 Blockly にて Block を利用するボタン
--Loops
+- Loops
 繰り返しの命令ブロックを利用できます
--Math
+- Math
 数字情報を利用できます
--Text
+- Text
 文字情報を利用できます
--Lists
+- Lists
 配列情報を利用できます
--Colour
+- Colour
 色情報を利用できます
--Variables
+- Variables
 変数情報を利用できます
--Functions
+- Functions
 関数を作成できます
