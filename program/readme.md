@@ -43,7 +43,7 @@ Blockly にて構成されたブロックから、Python のコードに変換�
 - question2
 画面右上のコードの情報の一部の表示を変換して、穴埋め状態にします。
 
-###　 Blockly にて Block を利用するボタン
+### Blockly にて Block を利用するボタン
 - Loops
 繰り返しの命令ブロックを利用できます
 - Math
