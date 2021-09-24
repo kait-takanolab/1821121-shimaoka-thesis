@@ -1,4 +1,4 @@
-var select = document.getElementById('selectNum');
+//var select = document.getElementById('selectNum');
 //select.onchange = getselect2();
 var x = document.getElementById("loop.value");
 
@@ -10,9 +10,6 @@ function getselect2(){
     document.getElementById("box3").textContent = document.getElementById("selectNum").value;
 }
 
-//select.onchange = function alert1(){
-//    alert(test);
-//}
 
 
 function hantei(){
@@ -37,3 +34,27 @@ function hantei(){
     console.log(z,x,y,count);
     document.getElementById("kekka").textContent = count + "問正解";
 }
+
+
+
+
+
+const animals = [
+    { value: 1, name: 'ゾウ'},
+    { value: 2, name: 'キリン'},
+    { value: 3, name: 'イルカ'},
+    { value: 4, name: 'ライオン'},
+  ]
+const jsSelectBox = document.querySelector('.js-selectbox');
+const selectWrap = document.createElement('div');
+selectWrap.classList.add('selectwrap');
+const select = document.createElement('select');
+select.classList.add('select');
+animals.forEach((v) => {
+    const option = document.createElement('option');
+    option.value = v.value;
+    option.textContent = v.name;
+    select.appendChild(option);
+});
+selectWrap.appendChild(select);
+jsSelectBox.appendChild(selectWrap);
