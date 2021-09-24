@@ -30,36 +30,37 @@
     <input type="file" id="file" onclick="questionpy()"></input>
     <button onclick="answer()">checking answer</button>
     <textarea id="answer" readonly></textarea>
+  </p>
 
-    <select class="language" name="language">
-      <option value="Python">Change Python</option>
-      <option value="JavaScript">Change JavaScript</option>
+  <p>
+    <select id="areaselect" onchange="select_area()">
+      <option value="1">question_area</option>
+      <option value="2">output</option>
     </select>
-
+  </p>
     <!--Python,Javascriptからxmlを通さずに変換したい-->
+    
+    <!--Javascriptの関数処理用-->
+   
+
   
     </br>
-  
+    <button onclick="showCodeJS()">Show JavaScript</button>
     <button onclick="showCodePy()">Show Python</button>
+    <button onclick="runCodeJS()">Run JavaScript</button>
     <button onclick="runCodeJS()">Run Python</button>
     <button onclick="generatepy()">Generate code Python</button>
-    <button onclick="clearcode()">clear code</button>
+    <button onclick="generateJS()">Generate code JavaScript</button>
+    <button onclick="generatexml()">Generate code xml</button>
     <button onclick="stringsinarray()">inarraytest</button>
     <button onclick="que_area_back()">question1</button>
     <button onclick="make_question()">question2</button>
-    <button onclick="make_question2()">question3</button>
-    <button onclick="test()">t</button>
-    <!--
-        <button onclick="showCodeJS()">Show JavaScript</button>
-        <button onclick="runCodeJS()">Run JavaScript</button>
-        <button onclick="generateJS()">Generate code JavaScript</button>
-    -->
   </p>  
 
 
 
   <main>
-    <div id="blocklyDiv"  class="left"></div>
+    <div id="Div"  class="left"></div>
     <textarea id="question_area" readonly class="right"></textarea>
     <textarea id="output" class="right"></textarea>
   </main>
@@ -477,8 +478,10 @@
     </block>
   </xml>
 
+
+
   <script>
-    var demoWorkspace = Blockly.inject('blocklyDiv',
+      var demoWorkspace = Blockly.inject('Div',
         {media: 'https://unpkg.com/blockly/media/',
          toolbox: document.getElementById('toolbox')});
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
