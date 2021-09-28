@@ -10,7 +10,6 @@
   <script src="./node_modules/blockly/msg/en.js"></script>
   <script src="./test.js"></script>
   <link rel="stylesheet" href="main.css">
-
   <style>
     body {
       background-color: #fff;
@@ -33,7 +32,7 @@
   </p>
 
   <p>
-    <select id="areaselect" onchange="select_area()">
+    <select id="areaselect">
       <option value="1">question_area</option>
       <option value="2">output</option>
     </select>
@@ -42,13 +41,13 @@
     
     <!--Javascriptの関数処理用-->
    
+    <button onclick="testCode()">test</button>
 
-  
     </br>
     <button onclick="showCodeJS()">Show JavaScript</button>
     <button onclick="showCodePy()">Show Python</button>
     <button onclick="runCodeJS()">Run JavaScript</button>
-    <button onclick="runCodeJS()">Run Python</button>
+    <button onclick="runCodePy()">Run Python</button>
     <button onclick="generatepy()">Generate code Python</button>
     <button onclick="generateJS()">Generate code JavaScript</button>
     <button onclick="generatexml()">Generate code xml</button>
@@ -395,39 +394,7 @@
     <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
     <category name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
   </xml>
-<!--     <category name="Logic" colour="%{BKY_LOGIC_HUE}">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-    </category>
-    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <block type="math_number">
-            <field name="NUM">10</field>
-          </block>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-    </category>
-    <category name="Math" colour="%{BKY_MATH_HUE}">
-      <block type="math_number">
-        <field name="NUM">123</field>
-      </block>
-      <block type="math_arithmetic"></block>
-      <block type="math_single"></block>
-    </category>
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
-      <block type="text"></block>
-      <block type="text_length"></block>
-      <block type="text_print"></block>
-    </category>
 
-  -->
-
-  </xml>
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
     <block type="controls_if" inline="false" x="20" y="20">
@@ -481,11 +448,17 @@
 
 
   <script>
-      var demoWorkspace = Blockly.inject('Div',
-        {media: 'https://unpkg.com/blockly/media/',
-         toolbox: document.getElementById('toolbox')});
+    var demoWorkspace = Blockly.inject('Div',
+      {
+//        media: 'https://unpkg.com/blockly/media/',
+        media:  './node_modules/blockly/media/',
+        toolbox: document.getElementById('toolbox')
+      });
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                               demoWorkspace);
+      demoWorkspace);
+
+    var selector = document.getElementById("areaselect").value;
+    selector.onchange = select_area();
   </script>
 
 </body>
