@@ -1,13 +1,33 @@
 # 使いそうなプログラム群をおいておく場所
 あるいはこれからやりたいことのメモも書きます
 
+## 作成済み
+kirikae.html
+- タブ切り替えをする
+index.html
+- リアルタイム切り替え、あるいはボタンクリックによる切り替え
+selectbox.html
+- セレクトボックスを生成
+test.html
+- セレクトの結果から合否判定
+test2.html  
+- 文字列の置換をする（現在は; に反応し、その後ろに改行コードを入力）
+
+
+
+
+
+
+
+
 ## ituka
 toolboxを別ファイルで用意して読み込ませたい
 →もっとindex.htmlの見た目をきれいにしたい
 
 ## 1
 選択された結果からできたコードを実行できると理解がしやすい
-エラーが発生するようなコードが選択肢に入ってほしい, またはほしくない場合もある
+エラーが発生するようなコードが選択肢に入ってほしい, 
+またはほしくない場合もある
 
 ## リスクについて
 evalにてコードを実行する以上悪意をもっていじると結構怖い
@@ -23,6 +43,11 @@ evalにてコードを実行する以上悪意をもっていじると結構怖�
     - 他の言語を生成後、Javacriptに変換する方法を考える必要がある
     -
 - evalよりJS-Interpreterによる実行が公式に推奨されている 
+
+###
+- partsにて生成したセレクトボックスの生成を実装できるように、TextBoxを一つDivなどに変換したい
+- ボタンを押すと問題文の表示する場所、ブロックから生成したコードを表示する場所などが切り替えられると、Div一つでいいかもしれない
+- 変更するなら保存する場所をつくらないといけない
 
 # url memo
 Blockly for c
@@ -46,6 +71,8 @@ https://techacademy.jp/magazine/20820
 blockly-toolbox, workspace
 https://www.catch.jp/wiki/index.php?Blockly%2FToolbox_WorkSpace
 
+div
+https://www.ipentec.com/document/css-child-selector
 
 #
 Blocklyを用いた多言語プログラミング学習支援環境の構築
