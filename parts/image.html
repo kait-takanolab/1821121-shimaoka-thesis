@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>file_reader</title>
+    <style>
+        img {
+            max-width: 200px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<input type="file" class="image_file" data-image-tag-id="#image01"><br>
+<img id="image01"><br>
+
+<input type="file" class="image_file" data-image-tag-id="#image02"><br>
+<img id="image02"><br>
+
+<input type="file" class="image_file" data-image-tag-id="#image03"><br>
+<img id="image03"><br>
+
+<input type="file" class="image_file" data-image-tag-id="#image04"><br>
+<img id="image04"><br>
+
+<input type="file" class="image_file" data-image-tag-id="#image05"><br>
+<img id="image05"><br>
+</body>
+<script>
+    $(function () {
+        $('.image_file').change(function () {
+            // 画像の情報を取得
+            var file = this.files[0];
+            var img_tag_id = $(this).data('imageTagId');
+
+            // 指定の拡張子以外の場合はアラート
+            var permit_type = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp'];
+            if (file && permit_type.indexOf(file.type) == -1) {
+                alert('この形式のファイルはアップロードできません');
+                $(this).val('');
+                $(img_tag_id).attr('src', '');
+                return
+            }
+
+            // 読み込んだ画像を取得し、フォームの直後に表示させる
+            var reader = new FileReader()
+            reader.onload = function () {
+                $(img_tag_id).attr('src', reader.result);
+                $(img_tag_id + '_prev').attr('src', '');
+            }
+
+            // 画像の読み込み
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
+</html>
