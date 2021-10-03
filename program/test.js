@@ -12,11 +12,13 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 //問題文章用変数　
 var q_code ="test";
 
-//ボックスの変換用
-let area_select = document.getElementById("areaselect");
-
 function select_area(){
-    document.getElementById('output').value = area_select;
+    var x = document.getElementById("areaselect").value;
+    if(x==1){
+        document.getElementById('output').innerHTML = "1";
+    }else{
+        document.getElementById('output').innerHTML = "2";
+    }
 }
 
 //BlockをJavaScriptコードに変換して表示
@@ -48,7 +50,35 @@ function runCodeJS() {
     } catch (e) {
         alert(e);
     }
+    testCode1();
 }
+
+
+function testCode1() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //var code = document.getElementById('output').innerHTML;
+    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    document.getElementById("question_area").innerHTML = code;
+}
+
+function testCode() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //var code = document.getElementById('output').innerHTML;
+    var code = document.getElementById("output").value;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+}
+
+
 
 //Pythonコードに変換後実行
 function runCodePy() {

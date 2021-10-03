@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="tab-panel">
+        <!--タブ-->
+        <ul class="tab-group">
+            <li class="tab tab-A is-active">Tab-A</li>
+            <li class="tab tab-B">Tab-B</li>
+            <li class="tab tab-C">Tab-C</li>
+        </ul>
+        
+        <!--タブを切り替えて表示するコンテンツ-->
+        <div class="panel-group">
+            <div class="panel tab-A is-show">Content-A</div>
+            <div class="panel tab-B">Content-B</div>
+            <div class="panel tab-C">Content-C</div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+	// タブに対してクリックイベントを適用
+	const tabs = document.getElementsByClassName('tab');
+	for(let i = 0; i < tabs.length; i++) {
+		tabs[i].addEventListener('click', tabSwitch, false);
+	}
+
+	// タブをクリックすると実行する関数
+	function tabSwitch(){
+		// タブのclassの値を変更
+		document.getElementsByClassName('is-active')[0].classList.remove('is-active');
+		this.classList.add('is-active');
+		// コンテンツのclassの値を変更
+		document.getElementsByClassName('is-show')[0].classList.remove('is-show');
+		const arrayTabs = Array.prototype.slice.call(tabs);
+		const index = arrayTabs.indexOf(this);
+		document.getElementsByClassName('panel')[index].classList.add('is-show');
+	};
+}, false);
+    </script>
+</body>
+</html>
