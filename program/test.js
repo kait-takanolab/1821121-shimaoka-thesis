@@ -12,13 +12,10 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 //問題文章用変数　
 var q_code ="test";
 
-function select_area(){
-    var x = document.getElementById("areaselect").value;
-    if(x==1){
-        document.getElementById('output').innerHTML = "1";
-    }else{
-        document.getElementById('output').innerHTML = "2";
-    }
+//iframe test
+function test1(){
+    document.getElementById('test').innerHTML = 
+        "<iframe src= \"../parts/test2.html\" height=\"300\" width=\"50%\"></iframe>";
 }
 
 //BlockをJavaScriptコードに変換して表示
@@ -26,6 +23,7 @@ function showCodeJS() {
     // Generate JavaScript code and display it.
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    code = code.replace('\\',"");
     alert(code);
 }
 
@@ -108,7 +106,7 @@ function generatepy() {
         alert(e);
         return;
     }
-    document.getElementById('output').value = code;
+    document.getElementById('output').innerText = code;
 }
 
 //BlockからJavaScriptコードに変換
@@ -119,16 +117,17 @@ function generateJS() {
         Blockly.Python.INFINITE_LOOP_TRAP =
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+        code = code.replace('\\',"");
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     } catch (e) {
         alert(e);
         return;
     }
-    document.getElementById('output').value = code;
+    document.getElementById('output').innerText = code;
 }
 
 //txtファイルから例となるXMLを受け取り、Pythonコードに変換し表示
-function questionpy() {
+function questionjs() {
     var ele = document.getElementById('file'); // input要素オブジェクトの取得
 
     // ファイルが選択されたら引数の関数を実行
@@ -143,8 +142,9 @@ function questionpy() {
             var xml = Blockly.Xml.textToDom(xmltext);
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
-            var code = Blockly.Python.workspaceToCode(testWorkspace);
-            document.getElementById('question_area').innerHTML = code;
+            var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
+            code = code.replace('\\',"");
+            document.getElementById('question_area').innerText = code;
             q_code = question_str(code);
         }
     }, false);
@@ -160,13 +160,13 @@ function change() {
 
 //選択されたテキストと、生成したコードが完全一致ならばyes
 function answer() {
-    var code1 = q_code;
+    var code1 = document.getElementById("question_area").textContent;
     //code1 = code1.replace(',','');
-    var code2 = document.getElementById("output").value;
+    var code2 = document.getElementById("output").textContent;
     if (code1 == code2) {
-        document.getElementById("answer").innerHTML = "yes";
+        document.getElementById("answer").innerText = "yes";
     } else {
-        document.getElementById("answer").innerHTML = "no";
+        document.getElementById("answer").innerText = "no";
     }
 }
 
