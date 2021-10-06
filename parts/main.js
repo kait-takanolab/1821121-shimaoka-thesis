@@ -2,6 +2,8 @@
 //select.onchange = getselect2();
 var x = document.getElementById("loop.value");
 
+//index.html
+
 function getselect() {
   document.getElementById("box2").textContent =
     document.getElementById("selectNum").value;
@@ -12,6 +14,10 @@ function getselect2() {
     document.getElementById("selectNum").value;
 }
 
+
+
+// test.html
+
 function hantei() {
   var count = 0;
   var x = document.getElementById("loop").value;
@@ -21,7 +27,7 @@ function hantei() {
   if (x == "no" || y == "no") {
     alert("選択してください");
   }
-  if (x == "1") {
+  if (x == "1" || x == "2") {
     count += 1;
   }
   if (y == "2") {
@@ -34,6 +40,33 @@ function hantei() {
   console.log(z, x, y, count);
   document.getElementById("kekka").textContent = count + "問正解";
 }
+
+//test2.html
+
+function hantei2() {
+  var count = 0;
+  var x = document.getElementById("q1").value;
+  var y = document.getElementById("q2").value;
+  var z = document.getElementById("q3").value;
+  //    var x = document.getElementById("loop");
+  if (x == "no" || y == "no" || z == "no") {
+    alert("選択してください");
+  }
+  if (x == "1") {
+    count += 1;
+  }
+  if (y == "1") {
+    count += 1;
+  }
+  if (z == "2") {
+    count += 1;
+  }
+
+  console.log(z, x, y, count);
+  document.getElementById("kekka").textContent = count + "問正解";
+}
+
+// selectbox.html
 
 function selectbox() {
   const animals = [
