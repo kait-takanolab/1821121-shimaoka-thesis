@@ -26,17 +26,19 @@
   <p>code generate, run and test for Python and JavaScript</p>
 
   <p>
-    <input type="file" id="file" onclick="questionpy()"></input>
+    <input type="file" id="file" onclick="questionjs()"></input>
     <button onclick="answer()">checking answer</button>
     <textarea id="answer" readonly></textarea>
   </p>
 
+<!--
   <p>
     <select id="areaselect">
       <option value="1">question_area</option>
       <option value="2">output</option>
     </select>
   </p>
+-->
     <!--Python,Javascriptからxmlを通さずに変換したい-->
     
     <!--Javascriptの関数処理用-->
@@ -59,28 +61,28 @@
 
 
   <main>
-    <div id="Div"  class="left"></div>
+    <div id="BlockDiv"  class="left"></div>
     <div class="tab-panel">
         <!--タブ-->
         <ul class="tab-group">
-            <li class="tab tab-A is-active">Tab-A</li>
-            <li class="tab tab-B">Tab-B</li>
-            <li class="tab tab-C">Tab-C</li>
+            <li class="tab tab-A is-active">Question</li>
+            <li class="tab tab-B">output</li>
+            <li class="tab tab-C">test</li>
         </ul>
         
         <!--タブを切り替えて表示するコンテンツ-->
         <div class="panel-group">
-            <div class="panel tab-A is-show">Content-A</div>
-            <div class="panel tab-B">Content-B</div>
-            <div class="panel tab-C">Content-C</div>
+            <div id="question_area" class="panel tab-A is-show">Content-A</div>
+            <div id="output" class="panel tab-B">Content-B</div>
+            <div id="test" class="panel tab-C">Content-C</div>
         </div>
     </div>
 
 
-
+<!--
     <textarea id="question_area" readonly class="right"></textarea>
     <textarea id="output" class="right"></textarea>
-
+-->
   </main>
 
 
@@ -467,18 +469,23 @@
 
 
   <script>
-    var demoWorkspace = Blockly.inject('Div',
+    var demoWorkspace = Blockly.inject('BlockDiv',
       {
 //        media: 'https://unpkg.com/blockly/media/',
         media:  './node_modules/blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-      demoWorkspace);
+//    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
+    
+//      var　changeBlock = document.getElementById('BlockDiv');
+//      changeBlock.onchange = generateJS();
+      demoWorkspace.addChangeListener(function(){
+        generateJS();
+      });
 
-    var selector = document.getElementById("areaselect").value;
-    selector.onchange = select_area();
-
+//    var selector = document.getElementById("areaselect").value;
+//    selector.onchange = select_area();
+      test1();
 
     document.addEventListener('DOMContentLoaded', function(){
 	// タブに対してクリックイベントを適用
