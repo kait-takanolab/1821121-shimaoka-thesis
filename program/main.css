@@ -100,7 +100,7 @@ select:focus {
     cursor:pointer;
 }
 .panel-group{
-    height:100px;
+    height:300px;
     border:solid 1px #CCC;
     border-top:none;
     background:#eee;
