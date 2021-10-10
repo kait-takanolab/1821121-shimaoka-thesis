@@ -87,6 +87,15 @@
 
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="Logic" categorystyle="logic_category">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null" disabled="true"></block>
+      <block type="logic_ternary"></block>
+    </category>
     <category name="Loops" categorystyle="loop_category">
       <block type="controls_repeat_ext">
         <value name="TIMES">
@@ -475,7 +484,7 @@
         media:  './node_modules/blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
-//    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
     
 //      var　changeBlock = document.getElementById('BlockDiv');
 //      changeBlock.onchange = generateJS();
