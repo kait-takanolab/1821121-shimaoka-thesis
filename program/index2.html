@@ -32,6 +32,13 @@
   </p>
 
 <!--
+  <select id="selectQ">
+    <option value="1">Q1</option>
+    <option value="2">Q2</option>
+  </select>
+  <button onclick="selectquiz()">問題選択</button>
+  <p></p>
+
   <p>
     <select id="areaselect">
       <option value="1">question_area</option>
@@ -484,7 +491,7 @@
         media:  './node_modules/blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
+//    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
     
 //      var　changeBlock = document.getElementById('BlockDiv');
 //      changeBlock.onchange = generateJS();
@@ -494,7 +501,7 @@
 
 //    var selector = document.getElementById("areaselect").value;
 //    selector.onchange = select_area();
-      test1();
+//      test1();
 
     document.addEventListener('DOMContentLoaded', function(){
 	// タブに対してクリックイベントを適用
