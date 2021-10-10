@@ -12,11 +12,6 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 //問題文章用変数　
 var q_code ="test";
 
-//iframe test
-function test1(){
-    document.getElementById('test').innerHTML = 
-        "<iframe src= \"../parts/test2.html\" height=\"300\" width=\"50%\"></iframe>";
-}
 
 //BlockをJavaScriptコードに変換して表示
 function showCodeJS() {
@@ -147,8 +142,35 @@ function questionjs() {
             document.getElementById('question_area').innerText = code;
             q_code = question_str(code);
         }
+
+        //testタブにHTMLファイル
+        var list = "";
+        list += file[0].name;
+        list = list.replace(".txt", ".html");
+        document.getElementById('test').innerHTML = 
+            "<iframe src= \"./question/" + list + "\" height=\"300\" width=\"50%\"></iframe>";
+  
     }, false);
+
 }
+
+
+//        document.getElementById('test').innerHTML = 
+//               "<iframe src= \"./question/" + list + " height=\"300\" width=\"50%\"></iframe>";
+  
+
+//iframe test
+function test1(){
+    var fileList = document.getElementById("files").files;
+    var list = "";
+    for(var i=0; i<fileList.length; i++){
+    list += fileList[i].name + "<br>";
+    }
+    document.getElementById("test").innerText = list;
+//    document.getElementById('test').innerHTML = 
+//        "<iframe src= \"./question/test1.html\" height=\"300\" width=\"50%\"></iframe>";
+}
+
 
 //回答の言語を変換したい(作成中)
 function change() {
