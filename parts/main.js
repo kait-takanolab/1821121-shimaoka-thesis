@@ -20,20 +20,21 @@ function getselect2() {
 
 function hantei() {
   var count = 0;
+  var z = document.getElementById("var").value;
   var x = document.getElementById("loop").value;
   var y = document.getElementById("end").value;
-  var z = document.getElementById("var").value;
+
   //    var x = document.getElementById("loop");
   if (x == "no" || y == "no") {
     alert("選択してください");
   }
-  if (x == "1" || x == "2") {
+  if (x == "1") {
     count += 1;
   }
   if (y == "2") {
     count += 1;
   }
-  if (z == "1") {
+  if (z == "1" || z == "2") {
     count += 1;
   }
 
@@ -88,4 +89,53 @@ function selectbox() {
   });
   selectWrap.appendChild(select);
   jsSelectBox.appendChild(selectWrap);
+}
+
+
+function match() {
+  var list1 = [
+    ['for', 'while', 'do'],
+    ['if', 'else', 'which'],
+    ['print', 'alert']
+  ];
+  var lista;
+
+  var x = document.getElementById("auto").innerText;
+  x = x.split(/(\s|\(|\)|\;|\n)/);
+  console.log(x);
+
+//str.split(',').forEach( function( value ) {
+
+  for(let i = 0; i < list1.length; i++){
+    for(let j = 0; j < list1[i].length; j++){
+      for(let k = 0; k < x.length; k++){
+        if(x[k] == list1[i][j]){
+          console.log(x[k]);
+          lista = list1[i];
+          console.log(lista);
+        }
+
+      }
+    }
+  }
+
+  x = (String(x)).replace(/,/g, '');
+  console.log(x);
+  document.getElementById("auto").innerText = x;
+
+
+
+  const jsSelectBox = document.querySelector(".js-selectbox");
+  const selectWrap = document.createElement("div");
+  selectWrap.classList.add("selectwrap");
+  const select = document.createElement("select");
+  select.classList.add("select");
+  lista.forEach((v) => {
+    const option = document.createElement("option");
+    option.textContent = v;
+    select.appendChild(option);
+  });
+  selectWrap.appendChild(select);
+  jsSelectBox.appendChild(selectWrap);
+  
 }
