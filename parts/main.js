@@ -76,22 +76,28 @@ function selectbox() {
     { value: 3, name: "イルカ" },
     { value: 4, name: "ライオン" },
   ];
-  const jsSelectBox = document.querySelector(".js-selectbox");
-  const selectWrap = document.createElement("div");
-  selectWrap.classList.add("selectwrap");
-  const select = document.createElement("select");
-  select.classList.add("select");
-  animals.forEach((v) => {
-    const option = document.createElement("option");
-    option.value = v.value;
-    option.textContent = v.name;
-    select.appendChild(option);
-  });
-  selectWrap.appendChild(select);
-  jsSelectBox.appendChild(selectWrap);
+  var i = 0;
+  while(i <= 1){
+    const jsSelectBox = document.querySelector(".js-selectbox");
+    const selectWrap = document.createElement("div");
+    selectWrap.classList.add("selectwrap");
+    const select = document.createElement("select");
+    select.classList.add("select");
+    animals.forEach((v) => {
+      const option = document.createElement("option");
+      option.value = v.value;
+      option.textContent = v.name;
+      select.appendChild(option);
+    });
+    selectWrap.appendChild(select);
+    jsSelectBox.appendChild(selectWrap);
+    i++;
+  }
 }
 
 
+
+// auto match.html
 function match() {
   var list1 = [
     ['for', 'while', 'do'],
@@ -99,29 +105,35 @@ function match() {
     ['print', 'alert']
   ];
   var lista;
+  var sbox = {};
+  var count = 0;
 
-  var x = document.getElementById("auto").innerText;
-  x = x.split(/(\s|\(|\)|\;|\n)/);
-  console.log(x);
+  var btext = document.getElementById("auto").innerText;
+  ctext = btext.split(/(\s|\(|\)|\;|\n)/);
+//  console.log(ctext);
 
 //str.split(',').forEach( function( value ) {
 
   for(let i = 0; i < list1.length; i++){
     for(let j = 0; j < list1[i].length; j++){
-      for(let k = 0; k < x.length; k++){
-        if(x[k] == list1[i][j]){
-          console.log(x[k]);
+      for(let k = 0; k < ctext.length; k++){
+        if(ctext[k] == list1[i][j]){
+          sbox[count] = list1[i];
           lista = list1[i];
           console.log(lista);
+          console.log(sbox);
+          count += 1;
         }
-
       }
     }
   }
 
-  x = (String(x)).replace(/,/g, '');
-  console.log(x);
-  document.getElementById("auto").innerText = x;
+//  ctext = (String(ctext)).replace(/,/g, '');
+//  console.log(ctext);
+//  document.getElementById("auto").innerText = x;
+
+
+  
 
 
 
@@ -130,7 +142,8 @@ function match() {
   selectWrap.classList.add("selectwrap");
   const select = document.createElement("select");
   select.classList.add("select");
-  lista.forEach((v) => {
+//  lista.forEach((v) => {
+  sbox[0].forEach((v) => {
     const option = document.createElement("option");
     option.textContent = v;
     select.appendChild(option);
@@ -138,4 +151,39 @@ function match() {
   selectWrap.appendChild(select);
   jsSelectBox.appendChild(selectWrap);
   
+}
+
+
+
+
+//dynamicname.html
+function dn1() {
+  if (!console) {
+      console = {};
+  }
+  var old = console.log;
+  var logger = document.getElementById('log');
+  console.log = function (message) {
+      if (typeof message == 'object') {
+          logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br />';
+      } else {
+          logger.innerHTML += message + '<br />';
+      }
+  }
+};
+
+function dn2(){
+// 動的な変数名
+
+var sbox={};
+for (var i = 0; i < 5; i++) {
+  　　sbox[i] = i;
+  }
+  
+  // ログに出力
+  console.log(sbox[0]);
+  console.log(sbox[1]);
+  console.log(sbox[2]);
+  console.log(sbox[3]);
+  console.log(sbox[4]);
 }
