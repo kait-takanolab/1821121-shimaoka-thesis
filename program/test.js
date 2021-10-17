@@ -121,7 +121,7 @@ function generateJS() {
     document.getElementById('output').innerText = code;
 }
 
-//txtファイルから例となるXMLを受け取り、Pythonコードに変換し表示
+//txtファイルから例となるXMLを受け取り、JSコードに変換し表示
 function questionjs() {
     var ele = document.getElementById('file'); // input要素オブジェクトの取得
 
@@ -138,7 +138,7 @@ function questionjs() {
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
-            code = code.replace('\\',"");
+            code2 = code.replace('\\',"");
             document.getElementById('question_area').innerText = code;
             q_code = question_str(code);
         }
@@ -151,9 +151,110 @@ function questionjs() {
             "<iframe src= \"./question/" + list + "\" height=\"300\" width=\"50%\"></iframe>";
   
     }, false);
+}
+function questionjs2() {
+    var ele = document.getElementById('file'); // input要素オブジェクトの取得
 
+    // ファイルが選択されたら引数の関数を実行
+    ele.addEventListener("change", function (ev) {
+        var file = ev.target.files;    // 選択されたファイルはFileListオブジェクトに入り、配列のように扱える
+        var reader = new FileReader(); // FileReaderオブジェクトの生成
+        reader.readAsText(file[0]);    // 選択されたファイル(fileの先頭要素）を文字列として読み込む
+
+        // 読み込みが完了した際に実行される処理
+        reader.onload = function (e) {
+            var xmltext = reader.result;
+            var xml = Blockly.Xml.textToDom(xmltext);
+            var testWorkspace = new Blockly.Workspace();
+            Blockly.Xml.domToWorkspace(xml, testWorkspace);
+            var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
+//            code = code.replace('\\',"");
+            document.getElementById('question_area').innerText = code;
+            q_code = question_str(code);
+         
+            //testタブに文章のマッチング
+            match(code);
+        }
+        
+    }, false);
 }
 
+
+function match(code) {
+    //全選択肢となる部分　もしかしたらDBなどにいれこむかも
+    var list1 = [
+      ['for', 'while', 'do'],
+      ['if', 'else', 'which'],
+      ['print', 'alert']
+    ];
+    //ワードがマッチした場所を保存する
+    var lista = []; 
+    //マッチしたワードを含む選択肢を保存する
+    var sbox = [];
+    //マッチしたワードを保存する
+    var mbox = [];
+    //何回ワードがマッチしたか保存する
+    var count = 0;
+  
+  //
+    var btext = code;
+  
+  //文字列を配列に変更
+    ctext = btext.split(/(\s|\(|\)|\;|\.|\n)/);
+  //  console.log(ctext);
+  
+  //問題とのマッチングループ
+  
+    for(let i = 0; i < list1.length; i++){
+      for(let j = 0; j < list1[i].length; j++){
+        for(let k = 0; k < ctext.length; k++){
+          if(ctext[k] == list1[i][j]){
+            sbox[count] = list1[i];
+            mbox[count] = ctext[k];
+            lista[count] = k;
+            count += 1;
+/*
+            console.log("mbox= " + mbox)
+            console.log("k= " + k);
+            console.log("lista=" + lista);
+            console.log("sbox=")
+            console.log(sbox);
+          */
+            }
+        }
+      }
+    }
+    //selectboxのインデックスを文章登場順にするためにソート処理
+    //lista.sort();
+    console.log(lista)
+    //マッチしたワード部分を選択肢に変更
+    for(let l = 0; l <lista.length; l++){
+      ctext[lista[l]] = `<select class="sele${l}"></select>`;
+    }
+  
+  // 配列から文字列に変更して表示
+    ctext = (String(ctext)).replace(/\n/g, '<br>');
+    ctext = (String(ctext)).replace(/,/g, '');
+//    console.log(ctext)
+    document.getElementById("test").innerHTML = ctext;
+  
+  
+  // ワードがマッチした場所に選択肢を生成する
+      for(let m = 0; m < count; m++){
+        var select = document.querySelector(`select.sele${m}`);
+      for(let n=0; n < sbox[m].length; n++){
+        var option = document.createElement('option');
+        option.innerText = sbox[m][n];
+        console.log(sbox[m][n])
+        if(sbox[m][n] != mbox[m])
+          option.value = n;
+        else 
+          option.value = "ans";
+  
+        select.append(option);
+      }
+    }
+  }
 
 //        document.getElementById('test').innerHTML = 
 //               "<iframe src= \"./question/" + list + " height=\"300\" width=\"50%\"></iframe>";
@@ -191,6 +292,32 @@ function answer() {
         document.getElementById("answer").innerText = "no";
     }
 }
+
+function answer2(){
+      //正解数をカウントする
+  var count = "0";
+  //ループ回数をカウント
+  var loop ="0";
+  //セレクトボックスがいくつあるのかをカウント
+  //セレクトボックスがなかったらBreak
+  while(1){
+    var select = document.querySelector(`select.sele${loop}`);
+    if(select != null){
+      //セレクトボックスのValueを入手（正解ならans, それ以外だと数字が返る）
+      if(select.value == "ans"){
+        //何問正解しているかを合計
+        count++;
+      }
+    }else{
+      break;
+    }
+    loop++;
+  }
+
+  //判定結果を表示
+  document.getElementById("answer").textContent = count + "問正解";
+}
+
 
 
 
@@ -273,4 +400,81 @@ function que_area_back(){
 function question_str(code){
     q_code = code;
     return q_code;
+}
+
+
+
+
+function jsrunque() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("question_area").innerText;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+
+}
+function jsrunout() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("output").innerText;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+
+}
+function jsruntst() {
+    var count = 0;
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("test").innerHTML;
+    code2 = code.split(/<select|<\/select>/);
+    console.log(code2)
+    
+    
+    for (let i = 0; i < code2.length; i++) {
+//      text = "sele" + count;
+//      console.log(text)
+      if(code2[i].indexOf("sele") == -1){
+//        console.log(i)
+      }else{
+          while(1){
+                if(code2[i].indexOf(`sele${count}`) != -1){
+                    break;
+                }else{
+                    count++;
+                }
+          }
+        var obj = document.querySelector(`select.sele${count}`);
+        var idx = obj.selectedIndex;
+        var txt = obj.options[idx].text;
+//        console.log(txt);
+        code2[i] = txt;
+        count = 0;
+      }
+    }
+    code2 = (String(code2)).replace(/,/g, '');
+    code2 = (String(code2)).replace(/\<br\>/g, '');
+
+
+    console.log(code2)
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code2);
+    } catch (e) {
+        alert(e);
+    }
+
 }
