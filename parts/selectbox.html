@@ -11,8 +11,38 @@
 <body>
     <div class="js-selectbox"></div>
 
+
+    <select class="sweets">
+        <option selected disabled hidden>
+          好きなお菓子を１つ選んで
+        </option>
+      </select>
+    
     <script>
         selectbox();
+
+        window.addEventListener('DOMContentLoaded', function(){
+         /// 各optionのテキストとvalue値の配列
+        const optionCntList = [
+            { text: 'Oreo', value: 'o' },
+            { text: 'Marshmallow', value: 'm' },
+            { text: 'Nougat', value: 'n' },
+            { text: 'KitKat', value: 'k'},
+            { text: 'Lollipop', value: 'l' },
+        ];
+  
+        /// JavaScriptによるselect初期化
+        var select = document.querySelector('select.sweets');
+        var keys = Object.keys(optionCntList);
+        keys.forEach(function(key, i){
+            /// option要素を動的に生成＆追加
+            var content = this[key];
+            var option = document.createElement('option');
+            option.innerText = content['text'];
+            option.value = content['value'];
+            select.append(option);
+        }, optionCntList);
+        });
     </script>
 </body>
 </html>
