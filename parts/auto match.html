@@ -10,7 +10,7 @@
 <body>
     <h1>auto match test</h1>
 
-    <div id="auto">
+    <div id="question_area">
     int main(void){<br>
 
         int count;<br>
@@ -24,14 +24,21 @@
             printf("hello/n");<br>
             count++;<br>
         }<br>
+        print(count <= 3){<br>
+            for("hello/n");<br>
+            count++;<br>
+        }<br>
         
         printf("finish/n");<br>
         
         return 0;<br>
         }
     </div>
-    <div class="js-selectbox"></div> 
+    <button onclick="hantei_auto()">判定</button>
+    <div id="kekka">判定結果</div>
 
+    <button onclick="kaeru()">kaeru</button>
+    <div id="kaeru"></div>
     <script>
     // <div class="js-selectbox"></div>    
         match();
