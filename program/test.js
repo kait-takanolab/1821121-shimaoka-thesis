@@ -12,97 +12,17 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 //問題文章用変数　
 var q_code ="test";
 
+/*
 
-//BlockをJavaScriptコードに変換して表示
-function showCodeJS() {
-    // Generate JavaScript code and display it.
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-    code = code.replace('\\',"");
-    alert(code);
-}
-
-//BlockをPythonコードに変換して表示
-function showCodePy() {
-    // Generate JavaScript code and display it.
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var code = Blockly.Python.workspaceToCode(demoWorkspace);
-    alert(code);
-}
-
-//JavaScriptコードに変換後実行
-function runCodeJS() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    try {
-        eval(code);
-    } catch (e) {
-        alert(e);
-    }
-    testCode1();
-}
-
-
-function testCode1() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    //var code = document.getElementById('output').innerHTML;
-    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-    document.getElementById("question_area").innerHTML = code;
-}
-
-function testCode() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    //var code = document.getElementById('output').innerHTML;
-    var code = document.getElementById("output").value;
-    try {
-        eval(code);
-    } catch (e) {
-        alert(e);
-    }
-}
-
-
-
-//Pythonコードに変換後実行
-function runCodePy() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.Python.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var code = Blockly.Python.workspaceToCode(demoWorkspace);
-    Blockly.Python.INFINITE_LOOP_TRAP = null;
-    try {
-        eval(code);
-    } catch (e) {
-        alert(e);
-    }
-}
-
-//BlockからPythonコードに変換
-function generatepy() {
-    // Generate JavaScript code and run it.
-    try {
-        window.LoopTrap = 1000;
-        Blockly.Python.INFINITE_LOOP_TRAP =
-            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var code = Blockly.Python.workspaceToCode(demoWorkspace);
-        Blockly.Python.INFINITE_LOOP_TRAP = null;
-    } catch (e) {
-        alert(e);
-        return;
-    }
-    document.getElementById('output').innerText = code;
-}
+index2.html
+正誤問題の生成、ブロックでの判別、コード実行など
+利用する名称：
+- demoworkspace
+- question_area
+- output
+- test
+- sele$[n]
+*/
 
 //BlockからJavaScriptコードに変換
 function generateJS() {
@@ -121,37 +41,7 @@ function generateJS() {
     document.getElementById('output').innerText = code;
 }
 
-//txtファイルから例となるXMLを受け取り、JSコードに変換し表示
-function questionjs() {
-    var ele = document.getElementById('file'); // input要素オブジェクトの取得
 
-    // ファイルが選択されたら引数の関数を実行
-    ele.addEventListener("change", function (ev) {
-        var file = ev.target.files;    // 選択されたファイルはFileListオブジェクトに入り、配列のように扱える
-        var reader = new FileReader(); // FileReaderオブジェクトの生成
-        reader.readAsText(file[0]);    // 選択されたファイル(fileの先頭要素）を文字列として読み込む
-
-        // 読み込みが完了した際に実行される処理
-        reader.onload = function (e) {
-            var xmltext = reader.result;
-            var xml = Blockly.Xml.textToDom(xmltext);
-            var testWorkspace = new Blockly.Workspace();
-            Blockly.Xml.domToWorkspace(xml, testWorkspace);
-            var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
-            code2 = code.replace('\\',"");
-            document.getElementById('question_area').innerText = code;
-            q_code = question_str(code);
-        }
-
-        //testタブにHTMLファイル
-        var list = "";
-        list += file[0].name;
-        list = list.replace(".txt", ".html");
-        document.getElementById('test').innerHTML = 
-            "<iframe src= \"./question/" + list + "\" height=\"300\" width=\"50%\"></iframe>";
-  
-    }, false);
-}
 function questionjs2() {
     var ele = document.getElementById('file'); // input要素オブジェクトの取得
 
@@ -273,25 +163,9 @@ function test1(){
 }
 
 
-//回答の言語を変換したい(作成中)
-function change() {
-    const changeLang = document.querySelector('language');
-    changeLang.addEventListener('change', (event) => {
-        const result = a;
-    })
-}
 
-//選択されたテキストと、生成したコードが完全一致ならばyes
-function answer() {
-    var code1 = document.getElementById("question_area").textContent;
-    //code1 = code1.replace(',','');
-    var code2 = document.getElementById("output").textContent;
-    if (code1 == code2) {
-        document.getElementById("answer").innerText = "yes";
-    } else {
-        document.getElementById("answer").innerText = "no";
-    }
-}
+
+
 
 function answer2(){
       //正解数をカウントする
@@ -319,7 +193,274 @@ function answer2(){
 }
 
 
+function jsrunque() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("question_area").innerText;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
 
+}
+function jsrunout() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("output").innerText;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+
+}
+function jsruntst() {
+    var count = 0;
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = document.getElementById("test").innerHTML;
+    code2 = code.split(/<select|<\/select>/);
+//    console.log(code2)
+    
+    
+    for (let i = 0; i < code2.length; i++) {
+//      text = "sele" + count;
+//      console.log(text)
+      if(code2[i].indexOf("sele") == -1){
+//        console.log(i)
+      }else{
+          while(1){
+                if(code2[i].indexOf(`sele${count}`) != -1){
+                    break;
+                }else{
+                    count++;
+                }
+          }
+        var obj = document.querySelector(`select.sele${count}`);
+        var idx = obj.selectedIndex;
+        var txt = obj.options[idx].text;
+//        console.log(txt);
+code2[i] = txt;
+count = 0;
+}
+}
+code2 = (String(code2)).replace(/,/g, '');
+code2 = (String(code2)).replace(/\<br\>/g, '');
+
+
+console.log(code2)
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+try {
+    eval(code2);
+} catch (e) {
+    alert(e);
+}
+
+}
+
+//問題文の内容を保存する関数
+function question_str(code){
+    q_code = code;
+    return q_code;
+}
+
+
+/*
+
+index3.html
+利用する名称：
+- area
+
+*/
+
+//xmlを表示する
+function look(){
+    var code = Blockly.Xml.workspaceToDom(demoWorkspace);
+    var codexml = Blockly.Xml.domToText(code);
+    document.getElementById('area').innerText = codexml;
+}
+
+//xmlをファイルに保存する
+function save() {
+    // テキストエリアより文字列を取得
+    const txt = document.getElementById("area").value;
+    if (!txt) {
+        return;
+}
+
+    // 文字列をBlob化
+    const blob = new Blob([txt], { type: "text/plain" });
+
+    // ダウンロード用のaタグ生成
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "sample.txt";
+    a.click();
+}
+
+
+
+
+
+
+
+
+
+/*
+memoと使わなくなった関数
+
+//BlockをJavaScriptコードに変換して表示
+function showCodeJS() {
+    // Generate JavaScript code and display it.
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    code = code.replace('\\',"");
+    alert(code);
+}
+
+//BlockをPythonコードに変換して表示
+function showCodePy() {
+    // Generate JavaScript code and display it.
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    var code = Blockly.Python.workspaceToCode(demoWorkspace);
+    alert(code);
+}
+
+//JavaScriptコードに変換後実行
+function runCodeJS() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+    testCode1();
+}
+
+
+function testCode1() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //var code = document.getElementById('output').innerHTML;
+    var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+    document.getElementById("question_area").innerHTML = code;
+}
+
+function testCode() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    //var code = document.getElementById('output').innerHTML;
+    var code = document.getElementById("output").value;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+}
+
+
+//Pythonコードに変換後実行
+function runCodePy() {
+    // Generate JavaScript code and run it.
+    window.LoopTrap = 1000;
+    Blockly.Python.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+    var code = Blockly.Python.workspaceToCode(demoWorkspace);
+    Blockly.Python.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code);
+    } catch (e) {
+        alert(e);
+    }
+}
+
+//BlockからPythonコードに変換
+function generatepy() {
+    // Generate JavaScript code and run it.
+    try {
+        window.LoopTrap = 1000;
+        Blockly.Python.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = Blockly.Python.workspaceToCode(demoWorkspace);
+        Blockly.Python.INFINITE_LOOP_TRAP = null;
+    } catch (e) {
+        alert(e);
+        return;
+    }
+    document.getElementById('output').innerText = code;
+}
+
+
+//txtファイルから例となるXMLを受け取り、JSコードに変換し表示
+function questionjs() {
+    var ele = document.getElementById('file'); // input要素オブジェクトの取得
+
+    // ファイルが選択されたら引数の関数を実行
+    ele.addEventListener("change", function (ev) {
+        var file = ev.target.files;    // 選択されたファイルはFileListオブジェクトに入り、配列のように扱える
+        var reader = new FileReader(); // FileReaderオブジェクトの生成
+        reader.readAsText(file[0]);    // 選択されたファイル(fileの先頭要素）を文字列として読み込む
+
+        // 読み込みが完了した際に実行される処理
+        reader.onload = function (e) {
+            var xmltext = reader.result;
+            var xml = Blockly.Xml.textToDom(xmltext);
+            var testWorkspace = new Blockly.Workspace();
+            Blockly.Xml.domToWorkspace(xml, testWorkspace);
+            var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
+            code2 = code.replace('\\',"");
+            document.getElementById('question_area').innerText = code;
+            q_code = question_str(code);
+        }
+
+        //testタブにHTMLファイル
+        var list = "";
+        list += file[0].name;
+        list = list.replace(".txt", ".html");
+        document.getElementById('test').innerHTML = 
+            "<iframe src= \"./question/" + list + "\" height=\"300\" width=\"50%\"></iframe>";
+  
+    }, false);
+}
+
+
+//選択されたテキストと、生成したコードが完全一致ならばyes
+function answer() {
+    var code1 = document.getElementById("question_area").textContent;
+    //code1 = code1.replace(',','');
+    var code2 = document.getElementById("output").textContent;
+    if (code1 == code2) {
+        document.getElementById("answer").innerText = "yes";
+    } else {
+        document.getElementById("answer").innerText = "no";
+    }
+}
+
+//回答の言語を変換したい(作成中)
+function change() {
+    const changeLang = document.querySelector('language');
+    changeLang.addEventListener('change', (event) => {
+        const result = a;
+    })
+}
 
 //xmlを保存する関数　未完成
 function saveBlocks() {
@@ -369,8 +510,7 @@ function anaaki(code){
     code[getRandomInt(code.length)] = "[ question ]";
     return code
 }
-
-/*配列から穴埋めを作成する,sitai
+//配列から穴埋めを作成する,sitai
 現在の問題点：
     現在半角スペースを区切り文字として文字列を配列に変換している関係上、改行では区切られない
     →例えばelse:などの次に改行し、次の行で書き始めた最後の単語までを一つとして分かれている
@@ -378,103 +518,26 @@ function anaaki(code){
     print()のように関数が含まれる場合に、print("hello world")の”print("hello”までを単語として認識している
     →穴埋めを生成するにあたって、()などを認識して区切りたい
     →（）は配列（文章）に残しておきたい
+    function make_question() {
+        que_ary = stringsinarray(); //文字列を配列に変換する関数を呼び出し
+        
+        //配列のランダムな位置の単語をを入れ替え, 複数回実行すれば複数個所を変換
+        //    que_ary[getRandomInt(que_ary.length)] = "[ question ]";
+        que_ary = anaaki(que_ary);
+        
+        que_ary = join_str(que_ary); //配列を文字列に変換する関数を呼び出し
+        document.getElementById('question_area').innerHTML = que_ary; //結果を表示
+        //    document.getElementById('output').innerHTML = q_code;
+    }
+    
+    //question1 問題文を隠していない元の形に戻す
+    function que_area_back(){
+        document.getElementById('question_area').innerHTML = q_code;
+    }
+    
+
 */
-function make_question() {
-    que_ary = stringsinarray(); //文字列を配列に変換する関数を呼び出し
-
-    //配列のランダムな位置の単語をを入れ替え, 複数回実行すれば複数個所を変換
-//    que_ary[getRandomInt(que_ary.length)] = "[ question ]";
-    que_ary = anaaki(que_ary);
-
-    que_ary = join_str(que_ary); //配列を文字列に変換する関数を呼び出し
-    document.getElementById('question_area').innerHTML = que_ary; //結果を表示
-//    document.getElementById('output').innerHTML = q_code;
-}
-
-//question1 問題文を隠していない元の形に戻す
-function que_area_back(){
-    document.getElementById('question_area').innerHTML = q_code;
-}
-
-//問題文の内容を保存する関数
-function question_str(code){
-    q_code = code;
-    return q_code;
-}
 
 
 
 
-function jsrunque() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var code = document.getElementById("question_area").innerText;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    try {
-        eval(code);
-    } catch (e) {
-        alert(e);
-    }
-
-}
-function jsrunout() {
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var code = document.getElementById("output").innerText;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    try {
-        eval(code);
-    } catch (e) {
-        alert(e);
-    }
-
-}
-function jsruntst() {
-    var count = 0;
-    // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
-    Blockly.JavaScript.INFINITE_LOOP_TRAP =
-        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    var code = document.getElementById("test").innerHTML;
-    code2 = code.split(/<select|<\/select>/);
-    console.log(code2)
-    
-    
-    for (let i = 0; i < code2.length; i++) {
-//      text = "sele" + count;
-//      console.log(text)
-      if(code2[i].indexOf("sele") == -1){
-//        console.log(i)
-      }else{
-          while(1){
-                if(code2[i].indexOf(`sele${count}`) != -1){
-                    break;
-                }else{
-                    count++;
-                }
-          }
-        var obj = document.querySelector(`select.sele${count}`);
-        var idx = obj.selectedIndex;
-        var txt = obj.options[idx].text;
-//        console.log(txt);
-        code2[i] = txt;
-        count = 0;
-      }
-    }
-    code2 = (String(code2)).replace(/,/g, '');
-    code2 = (String(code2)).replace(/\<br\>/g, '');
-
-
-    console.log(code2)
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    try {
-        eval(code2);
-    } catch (e) {
-        alert(e);
-    }
-
-}
