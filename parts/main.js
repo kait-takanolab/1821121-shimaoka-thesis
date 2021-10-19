@@ -14,8 +14,6 @@ function getselect2() {
     document.getElementById("selectNum").value;
 }
 
-
-
 // test.html
 
 function hantei() {
@@ -78,7 +76,7 @@ function selectbox() {
   ];
   console.log(animals);
   var i = 0;
-  while(i <= 1){
+  while (i <= 1) {
     const jsSelectBox = document.querySelector(".js-selectbox");
     const selectWrap = document.createElement("div");
     selectWrap.classList.add("selectwrap");
@@ -96,18 +94,16 @@ function selectbox() {
   }
 }
 
-
-
 // auto match.html
 function match() {
   //全選択肢となる部分　もしかしたらDBなどにいれこむかも
   var list1 = [
-    ['for', 'while', 'do'],
-    ['if', 'else', 'which'],
-    ['print', 'alert']
+    ["for", "while", "do"],
+    ["if", "else", "which"],
+    ["print", "alert"],
   ];
   //ワードがマッチした場所を保存する
-  var lista = []; 
+  var lista = [];
   //マッチしたワードを含む選択肢を保存する
   var sbox = [];
   //マッチしたワードを保存する
@@ -115,29 +111,28 @@ function match() {
   //何回ワードがマッチしたか保存する
   var count = 0;
 
-//
+  //
   var btext = document.getElementById("question_area").innerText;
 
-//文字列を配列に変更
+  //文字列を配列に変更
   ctext = btext.split(/(\s|\(|\)|\;|\n)/);
-//  console.log(ctext);
+  //  console.log(ctext);
 
-//問題とのマッチングループ
+  //問題とのマッチングループ
 
-  for(let i = 0; i < list1.length; i++){
-    for(let j = 0; j < list1[i].length; j++){
-      for(let k = 0; k < ctext.length; k++){
-        if(ctext[k] == list1[i][j]){
+  for (let i = 0; i < list1.length; i++) {
+    for (let j = 0; j < list1[i].length; j++) {
+      for (let k = 0; k < ctext.length; k++) {
+        if (ctext[k] == list1[i][j]) {
           sbox[count] = list1[i];
           mbox[count] = ctext[k];
           lista[count] = k;
           count += 1;
 
-          
-          console.log("mbox= " + mbox)
+          console.log("mbox= " + mbox);
           console.log("k= " + k);
           console.log("lista=" + lista);
-          console.log("sbox=")
+          console.log("sbox=");
           console.log(sbox);
         }
       }
@@ -145,52 +140,48 @@ function match() {
   }
   //lista.sort();
   //マッチしたワード部分を選択肢に変更
-  for(let l = 0; l <lista.length; l++){
+  for (let l = 0; l < lista.length; l++) {
     ctext[lista[l]] = `<select class="sele${l}"></select>`;
   }
 
-
-// 配列から文字列に変更して表示
-  ctext = (String(ctext)).replace(/\n/g, '<br>');
-  ctext = (String(ctext)).replace(/,/g, '');
+  // 配列から文字列に変更して表示
+  ctext = String(ctext).replace(/\n/g, "<br>");
+  ctext = String(ctext).replace(/,/g, "");
   //console.log(ctext)
   document.getElementById("question_area").innerHTML = ctext;
 
-
-// ワードがマッチした場所に選択肢を生成する
-    for(let m = 0; m < count; m++){
-      var select = document.querySelector(`select.sele${m}`);
-    for(let n=0; n < sbox[m].length; n++){
-      var option = document.createElement('option');
+  // ワードがマッチした場所に選択肢を生成する
+  for (let m = 0; m < count; m++) {
+    var select = document.querySelector(`select.sele${m}`);
+    for (let n = 0; n < sbox[m].length; n++) {
+      var option = document.createElement("option");
       option.innerText = sbox[m][n];
-      
+
       //マッチしたワードと等しい箇所のValueをans その他を数字に変更
-      if(sbox[m][n] != mbox[m])
-        option.value = n;
-      else 
-        option.value = "ans";
+      if (sbox[m][n] != mbox[m]) option.value = n;
+      else option.value = "ans";
 
       select.append(option);
     }
   }
 }
 
-function hantei_auto(){
+function hantei_auto() {
   //正解数をカウントする
   var count = "0";
   //ループ回数をカウント
-  var loop ="0";
+  var loop = "0";
   //セレクトボックスがいくつあるのかをカウント
   //セレクトボックスがなかったらBreak
-  while(1){
+  while (1) {
     var select = document.querySelector(`select.sele${loop}`);
-    if(select != null){
+    if (select != null) {
       //セレクトボックスのValueを入手（正解ならans, それ以外だと数字が返る）
-      if(select.value == "ans"){
+      if (select.value == "ans") {
         //何問正解しているかを合計
         count++;
       }
-    }else{
+    } else {
       break;
     }
     loop++;
@@ -200,18 +191,18 @@ function hantei_auto(){
   document.getElementById("kekka").textContent = count + "問正解";
 }
 
-function kaeru(){
+function kaeru() {
   var count = "0";
   var code = document.getElementById("question_area").innerHTML;
   code2 = code.split(/<select|<\/select>/);
-  console.log(code2)
-  
+  console.log(code2);
+
   for (let i = 0; i < code2.length; i++) {
     text = "sele" + count;
-    console.log(text)
-    if(code2[i].indexOf(text) == -1){
-      console.log(i)
-    }else{
+    console.log(text);
+    if (code2[i].indexOf(text) == -1) {
+      console.log(i);
+    } else {
       var obj = document.querySelector(`select.sele${count}`);
       var idx = obj.selectedIndex;
       var txt = obj.options[idx].text;
@@ -220,44 +211,76 @@ function kaeru(){
       count++;
     }
   }
-  code2 = (String(code2)).replace(/,/g, '');
-//  code2 = (String(code2)).replace(/\<br\>/g, '');
-  console.log(code2)
+  code2 = String(code2).replace(/,/g, "");
+  //  code2 = (String(code2)).replace(/\<br\>/g, '');
+  console.log(code2);
   document.getElementById("kaeru").innerHTML = code2;
 }
-
-
-
-
 
 //dynamicname.html
 function dn1() {
   if (!console) {
-      console = {};
+    console = {};
   }
   var old = console.log;
-  var logger = document.getElementById('log');
+  var logger = document.getElementById("log");
   console.log = function (message) {
-      if (typeof message == 'object') {
-          logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) + '<br />';
-      } else {
-          logger.innerHTML += message + '<br />';
-      }
-  }
-};
+    if (typeof message == "object") {
+      logger.innerHTML +=
+        (JSON && JSON.stringify ? JSON.stringify(message) : String(message)) +
+        "<br />";
+    } else {
+      logger.innerHTML += message + "<br />";
+    }
+  };
+}
 
-function dn2(){
-// 動的な変数名
+function dn2() {
+  // 動的な変数名
 
-var sbox={};
-for (var i = 0; i < 5; i++) {
-  　　sbox[i] = i;
+  var sbox = {};
+  for (var i = 0; i < 5; i++) {
+    sbox[i] = i;
   }
-  
+
   // ログに出力
   console.log(sbox[0]);
   console.log(sbox[1]);
   console.log(sbox[2]);
   console.log(sbox[3]);
   console.log(sbox[4]);
+}
+
+//  indent.html
+
+function indenttest() {
+  //インデントに利用する変数
+  var count = "0";
+  var ind = "    ";
+  var inc = "{";
+  var dec = "}";
+
+  //文字列を読み込み、改行コードで配列に保存
+  var text = document.getElementById("idt").innerText;
+  var text2 = text.split(/\n/g);
+
+  //行数ループ
+  for (let i = 0; i <= text2.length; i++) {
+    //個数分インデント
+    if (count > "0") {
+      text2[i] = "a";
+    }
+
+    //インデントの数を増加
+    if (text2[i].indexOf(inc) != -1) {
+      count++;
+    }
+
+    //インデントの数を減少
+    if (text2[i].indexOf(dec) != -1) {
+      count--;
+    }
+  }
+
+  console.log(text2);
 }
