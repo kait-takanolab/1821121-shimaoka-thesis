@@ -14,6 +14,39 @@ var q_code ="test";
 
 /*
 
+index.html
+ブロックになれる
+利用する名称：
+- demoworkspace
+- output
+
+function generateJS() {
+    // Generate JavaScript code and run it.
+    try {
+        window.LoopTrap = 1000;
+        Blockly.Python.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+        code = code.replace('\\',"");
+        
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    } catch (e) {
+        alert(e);
+        return;
+    }
+    document.getElementById('output').innerHTML = indent(code);;
+}
+*/
+
+
+
+
+
+
+
+
+/*
+
 index2.html
 正誤問題の生成、ブロックでの判別、コード実行など
 利用する名称：
@@ -110,7 +143,7 @@ function match(code) {
             console.log("lista=" + lista);
             console.log("sbox=")
             console.log(sbox);
-          */
+*/
             }
         }
       }
@@ -136,7 +169,7 @@ function match(code) {
       for(let n=0; n < sbox[m].length; n++){
         var option = document.createElement('option');
         option.innerText = sbox[m][n];
-        console.log(sbox[m][n])
+//        console.log(sbox[m][n])
         if(sbox[m][n] != mbox[m])
           option.value = n;
         else 
@@ -236,22 +269,22 @@ function jsruntst() {
         var idx = obj.selectedIndex;
         var txt = obj.options[idx].text;
 //        console.log(txt);
-code2[i] = txt;
-count = 0;
-}
-}
-code2 = (String(code2)).replace(/,/g, '');
-code2 = (String(code2)).replace(/\<br\>/g, '');
+        code2[i] = txt;
+        count = 0; 
+        }
+    }
+    code2 = (String(code2)).replace(/,/g, '');
+    code2 = (String(code2)).replace(/\<br\>/g, '');
+    code2 = (String(code2)).replace(/&nbsp;/g, '');
 
 
-console.log(code2)
-Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-try {
-    eval(code2);
-} catch (e) {
-    alert(e);
-}
-
+//    console.log(code2)
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code2);
+    }catch (e) {
+        alert(e);
+    }
 }
 
 //問題文の内容を保存する関数
@@ -301,7 +334,7 @@ function indent(code) {
         text2[i] = text2[i] + end;
     }
     code = String(text2).replace(/,/g, "");
-    console.log(code)
+//    console.log(code)
     return code;
   }
 
