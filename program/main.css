@@ -21,6 +21,15 @@ main div {
   
     background-color: #ddd; /* 視覚化のための背景色 */
   
+  }  
+  .right1 {
+  
+    float: right;
+    height: 480px; /* 要素の縦幅を50%に定義 */
+    width: 48%; /* 要素の横幅を50%に定義 */
+  
+    background-color: #ddd; /* 視覚化のための背景色 */
+  
   }
 
 
