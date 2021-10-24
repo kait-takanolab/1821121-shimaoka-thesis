@@ -23,34 +23,30 @@ https://nodejs.org/ja/
 xmlを保存するなど問題生成用
 
 - main.css
-画面構成のサイズや色などを設定するファイルです。
+画面構成のサイズや色などを設定するファイルです.
 - test.js
-Javascript のコードを書かれたファイルです。
+Javascript のコードを書かれたファイルです.
 - node_modules
-Google Blocly を利用するためのモジュールフォルダです。
+Google Blocly を利用するためのモジュールフォルダです.
+- question
+問題文の生成などに利用しているxmlデータのはいったtxtファイルが入っています.
 
 ## 機能説明(2021/09/13 時点)
 
 画面左上のボタンより説明しています。この機能説明に乗っていないボタンは現在利用できません。
 
-### Blockly を操作するボタン
+### index2.html にてBlockly を操作するボタン
 
 - ファイルを選択するボタン
-各 PC 内の xml にて保存された Blockly のブロック情報を選択し、画面右上のエリアにコードを表示します。Python。
+ローカルフォルダ内の xml にて保存された Blockly のブロック情報を選択し、Questionのタブにコードを表示します。また、testタブに問題を生成します。
 - checking answer
-画面右上のエリアと画面右下のエリアに表示されたコードが一致しているかを判断します。
-- Show Python
-Blockly にて構成されたブロックから、Python のコードに変換し、画面上部よりポップアウトにて表示します。
-- Run Python
-Blockly にて構成されたブロックから、Python のコードに変換し、画面上部よりポップアウトにて、実行結果を表示します。
-- Generate code Python
-Blockly にて構成されたブロックから、Python のコードに変換し、画面右下に表示します。
-- clear code
-画面右下の空間のコードを削除します。
-- question1
-画面右上のコードが穴埋め状態の時、通常の表示にします。
-- question2
-画面右上のコードの情報の一部の表示を変換して、穴埋め状態にします。
+Questionのタブとoutputのタブに表示されたコードが一致しているかを判断します。
+- question
+questionタブにはいっているJavascriptコードを実行します
+- output
+outputタブにはいっているJavascriptコードを実行します
+- test
+testタブにはいっているJavascriptコードを実行します
 
 ### Blockly にて Block を利用するボタン
 - Loops
