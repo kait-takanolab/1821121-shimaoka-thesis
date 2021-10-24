@@ -256,31 +256,42 @@ function dn2() {
 function indenttest() {
   //インデントに利用する変数
   var count = "0";
-  var ind = "    ";
-  var inc = "{";
-  var dec = "}";
+  var ind = "&nbsp;&nbsp;&nbsp;&nbsp;";
+  var inc = '{';
+  var dec = '}';
+  var end = '<br>';
 
   //文字列を読み込み、改行コードで配列に保存
   var text = document.getElementById("idt").innerText;
-  var text2 = text.split(/\n/g);
+  var text2 = text.split(/\n/);
+  console.log(text2)
+
 
   //行数ループ
-  for (let i = 0; i <= text2.length; i++) {
+  for (let i = 0; i < text2.length; i++) {
+    //インデントの数を減少
+    if(text2[i].includes(dec)){
+      count--;
+      //      console.log(count);
+    }
+    
     //個数分インデント
     if (count > "0") {
-      text2[i] = "a";
+      for(let j = 0; j < count; j++){
+        text2[i] = ind + text2[i];
+      }
     }
-
+    
+    
     //インデントの数を増加
-    if (text2[i].indexOf(inc) != -1) {
+    if (text2[i].includes(inc)) {
       count++;
+      //      console.log(count);
     }
-
-    //インデントの数を減少
-    if (text2[i].indexOf(dec) != -1) {
-      count--;
-    }
+    
+    text2[i] = text2[i] + end;
+    console.log(text2[i])
   }
-
-  console.log(text2);
+  text2 = String(text2).replace(/,/g, "");
+  document.getElementById("idt").innerHTML = text2;
 }

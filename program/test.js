@@ -14,6 +14,39 @@ var q_code ="test";
 
 /*
 
+index.html
+ブロックになれる
+利用する名称：
+- demoworkspace
+- output
+
+function generateJS() {
+    // Generate JavaScript code and run it.
+    try {
+        window.LoopTrap = 1000;
+        Blockly.Python.INFINITE_LOOP_TRAP =
+        'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+        code = code.replace('\\',"");
+        
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    } catch (e) {
+        alert(e);
+        return;
+    }
+    document.getElementById('output').innerHTML = indent(code);;
+}
+*/
+
+
+
+
+
+
+
+
+/*
+
 index2.html
 正誤問題の生成、ブロックでの判別、コード実行など
 利用する名称：
@@ -33,12 +66,13 @@ function generateJS() {
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
         code = code.replace('\\',"");
+        
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     } catch (e) {
         alert(e);
         return;
     }
-    document.getElementById('output').innerText = code;
+    document.getElementById('output').innerHTML = indent(code);;
 }
 
 
@@ -59,7 +93,7 @@ function questionjs2() {
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
-            document.getElementById('question_area').innerText = code;
+            document.getElementById('question_area').innerHTML = indent(code);;
             q_code = question_str(code);
          
             //testタブに文章のマッチング
@@ -109,14 +143,14 @@ function match(code) {
             console.log("lista=" + lista);
             console.log("sbox=")
             console.log(sbox);
-          */
+*/
             }
         }
       }
     }
     //selectboxのインデックスを文章登場順にするためにソート処理
     //lista.sort();
-    console.log(lista)
+//    console.log(lista)
     //マッチしたワード部分を選択肢に変更
     for(let l = 0; l <lista.length; l++){
       ctext[lista[l]] = `<select class="sele${l}"></select>`;
@@ -126,7 +160,7 @@ function match(code) {
     ctext = (String(ctext)).replace(/\n/g, '<br>');
     ctext = (String(ctext)).replace(/,/g, '');
 //    console.log(ctext)
-    document.getElementById("test").innerHTML = ctext;
+    document.getElementById("test").innerHTML = indent(ctext);
   
   
   // ワードがマッチした場所に選択肢を生成する
@@ -135,7 +169,7 @@ function match(code) {
       for(let n=0; n < sbox[m].length; n++){
         var option = document.createElement('option');
         option.innerText = sbox[m][n];
-        console.log(sbox[m][n])
+//        console.log(sbox[m][n])
         if(sbox[m][n] != mbox[m])
           option.value = n;
         else 
@@ -144,25 +178,11 @@ function match(code) {
         select.append(option);
       }
     }
-  }
+}
 
 //        document.getElementById('test').innerHTML = 
 //               "<iframe src= \"./question/" + list + " height=\"300\" width=\"50%\"></iframe>";
   
-
-//iframe test
-function test1(){
-    var fileList = document.getElementById("files").files;
-    var list = "";
-    for(var i=0; i<fileList.length; i++){
-    list += fileList[i].name + "<br>";
-    }
-    document.getElementById("test").innerText = list;
-//    document.getElementById('test').innerHTML = 
-//        "<iframe src= \"./question/test1.html\" height=\"300\" width=\"50%\"></iframe>";
-}
-
-
 
 
 
@@ -249,22 +269,22 @@ function jsruntst() {
         var idx = obj.selectedIndex;
         var txt = obj.options[idx].text;
 //        console.log(txt);
-code2[i] = txt;
-count = 0;
-}
-}
-code2 = (String(code2)).replace(/,/g, '');
-code2 = (String(code2)).replace(/\<br\>/g, '');
+        code2[i] = txt;
+        count = 0; 
+        }
+    }
+    code2 = (String(code2)).replace(/,/g, '');
+    code2 = (String(code2)).replace(/\<br\>/g, '');
+    code2 = (String(code2)).replace(/&nbsp;/g, '');
 
 
-console.log(code2)
-Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-try {
-    eval(code2);
-} catch (e) {
-    alert(e);
-}
-
+//    console.log(code2)
+    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+    try {
+        eval(code2);
+    }catch (e) {
+        alert(e);
+    }
 }
 
 //問題文の内容を保存する関数
@@ -272,6 +292,55 @@ function question_str(code){
     q_code = code;
     return q_code;
 }
+
+
+//indent
+
+function indent(code) {
+    //インデントに利用する変数
+    var count = "0";
+    var ind = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    var inc = '{';
+    var dec = '}';
+    var end = '<br>';
+  
+    //文字列を読み込み、改行コードで配列に保存
+    var text = code;
+    var text2 = text.split(/\n|<br>/);
+    
+    
+    //行数ループ
+    for (let i = 0; i < text2.length; i++) {
+        //インデントの数を減少
+        if(text2[i].includes(dec)){
+            count--;
+            //      console.log(count);
+        }
+        
+        //個数分インデント
+        if (count > "0") {
+            for(let j = 0; j < count; j++){
+                text2[i] = ind + text2[i];
+            }
+        }
+        
+        
+        //インデントの数を増加
+        if (text2[i].includes(inc)) {
+            count++;
+            //      console.log(count);
+        }
+        
+        text2[i] = text2[i] + end;
+    }
+    code = String(text2).replace(/,/g, "");
+//    console.log(code)
+    return code;
+  }
+
+
+
+
 
 
 /*
@@ -317,6 +386,22 @@ function save() {
 
 /*
 memoと使わなくなった関数
+
+
+//iframe test
+function test1(){
+    var fileList = document.getElementById("files").files;
+    var list = "";
+    for(var i=0; i<fileList.length; i++){
+    list += fileList[i].name + "<br>";
+    }
+    document.getElementById("test").innerText = list;
+//    document.getElementById('test').innerHTML = 
+//        "<iframe src= \"./question/test1.html\" height=\"300\" width=\"50%\"></iframe>";
+}
+
+
+
 
 //BlockをJavaScriptコードに変換して表示
 function showCodeJS() {

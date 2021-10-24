@@ -27,41 +27,13 @@
 
   <p>
     <input type="file" id="file" onclick="questionpy()"></input>
-    <button onclick="answer()">checking answer</button>
-    <textarea id="answer" readonly></textarea>
   </p>
-
-  <p>
-    <select id="areaselect">
-      <option value="1">question_area</option>
-      <option value="2">output</option>
-    </select>
-  </p>
-    <!--Python,Javascriptからxmlを通さずに変換したい-->
-    
-    <!--Javascriptの関数処理用-->
-   
-    <button onclick="testCode()">test</button>
-
-    </br>
-    <button onclick="showCodeJS()">Show JavaScript</button>
-    <button onclick="showCodePy()">Show Python</button>
-    <button onclick="runCodeJS()">Run JavaScript</button>
-    <button onclick="runCodePy()">Run Python</button>
-    <button onclick="generatepy()">Generate code Python</button>
-    <button onclick="generateJS()">Generate code JavaScript</button>
-    <button onclick="generatexml()">Generate code xml</button>
-    <button onclick="stringsinarray()">inarraytest</button>
-    <button onclick="que_area_back()">question1</button>
-    <button onclick="make_question()">question2</button>
-  </p>  
 
 
 
   <main>
     <div id="Div"  class="left"></div>
-    <textarea id="question_area" readonly class="right"></textarea>
-    <textarea id="output" class="right"></textarea>
+    <div id="output" class="right1"></div>
   </main>
 
 
@@ -457,6 +429,9 @@
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
       demoWorkspace);
 
+    demoWorkspace.addChangeListener(function(){
+        generateJS();
+    });
     var selector = document.getElementById("areaselect").value;
     selector.onchange = select_area();
   </script>
