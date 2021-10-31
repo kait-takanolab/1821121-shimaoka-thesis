@@ -420,20 +420,21 @@
 
 
   <script>
+    //Blockly作業スペースの生成
     var demoWorkspace = Blockly.inject('Div',
       {
 //        media: 'https://unpkg.com/blockly/media/',
         media:  './node_modules/blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
+    //Blockly初期ブロック配置
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
       demoWorkspace);
-
+    //Blockly作業スペースの内容からJavaScriptコード生成
     demoWorkspace.addChangeListener(function(){
         generateJS();
     });
-    var selector = document.getElementById("areaselect").value;
-    selector.onchange = select_area();
+
   </script>
 
 </body>
