@@ -40,11 +40,6 @@ function generateJS() {
 
 
 
-
-
-
-
-
 /*
 
 index2.html
