@@ -1,0 +1,5 @@
+if (6 * 7 == 42) {
+window.alert('Don't panic');
+} else {
+window.alert('Panic');
+}
