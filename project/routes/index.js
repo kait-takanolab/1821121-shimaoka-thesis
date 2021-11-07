@@ -1,13 +1,11 @@
 var express = require('express');
-var blockly =require('blockly');
+var blockly = require('blockly');
 var router = express.Router();
 var app = express();
 
-/* GET home page. 
-router.get('/', function(req, res, next) {
-  res.sendFile(__dirname + 'public/index.html');
-});
-*/
+
+
+
 
 app.use(express.static('public'))
 
