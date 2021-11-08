@@ -22,4 +22,4 @@ https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/project/
 - https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_tyuukan.pptx
 
 ### 卒業論文
-- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_thesis.docx
+- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121-shimaoka_thesis.docx
