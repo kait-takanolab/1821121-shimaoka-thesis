@@ -248,20 +248,17 @@ function jsrunout() {
 }
 function jsruntst() {
     var count = 0;
-    // Generate JavaScript code and run it.
+
     window.LoopTrap = 1000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
         'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
     var code = document.getElementById("test").innerHTML;
     code2 = code.split(/<select|<\/select>/);
-//    console.log(code2)
+
     
     
     for (let i = 0; i < code2.length; i++) {
-//      text = "sele" + count;
-//      console.log(text)
       if(code2[i].indexOf("sele") == -1){
-//        console.log(i)
       }else{
           while(1){
                 if(code2[i].indexOf(`sele${count}`) != -1){
@@ -273,7 +270,6 @@ function jsruntst() {
         var obj = document.querySelector(`select.sele${count}`);
         var idx = obj.selectedIndex;
         var txt = obj.options[idx].text;
-//        console.log(txt);
         code2[i] = txt;
         count = 0; 
         }
