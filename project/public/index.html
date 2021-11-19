@@ -30,10 +30,29 @@
   <p><a href="/test.html">test</a></p>
   <p><a href="/xml.html">xml</a></p>
 
+  <button onclick="jsrunout()">output</button>
+  <button onclick="jsruncode()">outcode</button>
+  <button onclick="check()">check</button>
+  <textarea id="check" readonly></textarea>
 
   <main>
     <div id="Div"  class="left"></div>
-    <div id="output" class="right1"></div>
+
+    <div class="tab-panel">
+      <!--タブ-->
+      <ul class="tab-group">
+          <li class="tab tab-A is-active">Visual</li>
+          <li class="tab tab-B">code</li>
+
+      </ul>
+      
+      <!--タブを切り替えて表示するコンテンツ-->
+      <div class="panel-group">
+          <div id="output" class="panel tab-A is-show">ブロックを操作する</div>
+          <div id="outcode" contenteditable="true" class="panel tab-B">ここにコードを書き込む</div>
+
+      </div>
+  </div>
   </main>
 
 
@@ -434,6 +453,26 @@
         generateJS();
     });
 
+
+    document.addEventListener('DOMContentLoaded', function(){
+	// タブに対してクリックイベントを適用
+	const tabs = document.getElementsByClassName('tab');
+	for(let i = 0; i < tabs.length; i++) {
+		tabs[i].addEventListener('click', tabSwitch, false);
+	}
+
+	// タブをクリックすると実行する関数
+	function tabSwitch(){
+		// タブのclassの値を変更
+		document.getElementsByClassName('is-active')[0].classList.remove('is-active');
+		this.classList.add('is-active');
+		// コンテンツのclassの値を変更
+		document.getElementsByClassName('is-show')[0].classList.remove('is-show');
+		const arrayTabs = Array.prototype.slice.call(tabs);
+		const index = arrayTabs.indexOf(this);
+		document.getElementsByClassName('panel')[index].classList.add('is-show');
+	};
+}, false);
   </script>
 
 </body>

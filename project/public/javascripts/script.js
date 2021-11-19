@@ -12,6 +12,12 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 //問題文章用変数　
 var q_code ="test";
 
+//コードの実行 (Function)
+function execution(code){
+    Function(code)();
+}
+
+
 /*
 
 index.html
@@ -21,6 +27,20 @@ index.html
 - output
 
 */
+function jsruncode(){
+        // Generate JavaScript code and run it.
+        window.LoopTrap = 1000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = document.getElementById("outcode").innerText;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        try {
+            execution(code);
+        } catch (e) {
+            alert(e);
+        }
+}
+
 
 function questionjs() {
     var ele = document.getElementById('file'); // input要素オブジェクトの取得
@@ -42,17 +62,35 @@ function questionjs() {
 //            code = code.replace('\\',"");
             document.getElementById('output').innerHTML = indent(code);
             q_code = question_str(code);
-         
         }
-        
     }, false);
 }
+
+//コードの構文的な正しさ
+function check(){
+    try{
+        window.LoopTrap = 1000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = document.getElementById("outcode").innerText;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        execution(code);
+        document.getElementById('check').innerText = "good";
+    }catch{
+        document.getElementById('check').innerText = "bad";
+    }
+}
+
+
+//コードによる整合性の評価
+
+
 
 
 
 /*
 
-index2.html
+test.html
 正誤問題の生成、ブロックでの判別、コード実行など
 利用する名称：
 - demoworkspace
@@ -70,13 +108,14 @@ function generateJS() {
         Blockly.JavaScript.INFINITE_LOOP_TRAP =
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
-        code = code.replace('\\',"");
+//        code = code.replace('\\',"");
         
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     } catch (e) {
         alert(e);
         return;
     }
+
     document.getElementById('output').innerHTML = indent(code);;
 }
 
@@ -190,10 +229,15 @@ function match(code) {
   
 
 
-
+/*
+    answer2
+    <textarea id="structure" readonly></textarea> <!--コードの構造上の正しさ -->
+    <textarea id="consistency" readonly></textarea> <!--問題の整合性の評価 -->
+    <textarea id="answer" readonly></textarea> <!--問題の正答数 -->
+*/
 
 function answer2(){
-      //正解数をカウントする
+    //正解数をカウントする
   var count = "0";
   //ループ回数をカウント
   var loop ="0";
@@ -226,12 +270,12 @@ function jsrunque() {
     var code = document.getElementById("question_area").innerText;
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
-        eval(code);
+        execution(code);
     } catch (e) {
         alert(e);
     }
-
 }
+
 function jsrunout() {
     // Generate JavaScript code and run it.
     window.LoopTrap = 1000;
@@ -240,12 +284,12 @@ function jsrunout() {
     var code = document.getElementById("output").innerText;
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
-        eval(code);
+        execution(code);
     } catch (e) {
         alert(e);
     }
-
 }
+
 function jsruntst() {
     var count = 0;
 
@@ -282,7 +326,7 @@ function jsruntst() {
 //    console.log(code2)
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
-        eval(code2);
+        execution(code2);
     }catch (e) {
         alert(e);
     }
