@@ -1,0 +1,3 @@
+本研究のシステムを動かすためのjavascriptファイルです。
+同フォルダのscript.jsとpublic/blockly内に存在するファイルによってシステムが動作します。
+
