@@ -109,14 +109,14 @@ function generateJS() {
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
 //        code = code.replace('\\',"");
-        
+
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     } catch (e) {
         alert(e);
         return;
     }
-
-    document.getElementById('output').innerHTML = indent(code);;
+    document.getElementById('output').innerHTML = indent(code);
+//    document.getElementById('output').innerHTML = (sengen(document.getElementById('output').innerText))
 }
 
 
@@ -137,7 +137,7 @@ function questionjs2() {
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
-            document.getElementById('question_area').innerHTML = indent(code);;
+            document.getElementById('question_area').innerHTML = indent(code);
             q_code = question_str(code);
          
             //testタブに文章のマッチング
@@ -379,11 +379,21 @@ function indent(code) {
         text2[i] = text2[i] + end;
     }
     code = String(text2).replace(/,/g, "");
-//    console.log(code)
+    return sengen(code);
+}
+
+function sengen(code){
+    //関数宣言が存在する場合に，をつける
+    var code2 = code.split(" ");
+    if(code2[0] == "var"){
+        var code3 = code.split(";");
+        code3[0] = code3[0].replace(/\s/g,",");
+        code3[0] = code3[0].replace(","," ");
+        code3 = code3.join(";");
+        code = code3;
+    }
     return code;
-  }
-
-
+}
 
 
 

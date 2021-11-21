@@ -60,7 +60,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
-Blockly.JavaScript['controls_for'] = function(block) {
+Blockly.JavaScript['controls_for1'] = function(block) {
   // For loop.
   var variable0 = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
@@ -124,6 +124,73 @@ Blockly.JavaScript['controls_for'] = function(block) {
   }
   return code;
 };
+
+Blockly.JavaScript['controls_for2'] = function(block) {
+  // For loop.
+  var variable0 = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var argument1 = Blockly.JavaScript.valueToCode(block, 'TO',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var increment = Blockly.JavaScript.valueToCode(block, 'BY',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '1';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block);
+  var code;
+  if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
+      Blockly.isNumber(increment)) {
+    // All arguments are simple numbers.
+    var up = Number(argument0) <= Number(argument1);
+    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+        variable0 + (up ? ' < ' : ' > ') + argument1 + '; ' +
+        variable0;
+    var step = Math.abs(Number(increment));
+    if (step == 1) {
+      code += up ? '++' : '--';
+    } else {
+      code += (up ? ' += ' : ' -= ') + step;
+    }
+    code += ') {\n' + branch + '}\n';
+  } else {
+    code = '';
+    // Cache non-trivial values to variables to prevent repeated look-ups.
+    var startVar = argument0;
+    if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
+      startVar = Blockly.JavaScript.variableDB_.getDistinctName(
+          variable0 + '_start', Blockly.VARIABLE_CATEGORY_NAME);
+      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
+    }
+    var endVar = argument1;
+    if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
+      endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+          variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
+      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
+    }
+    // Determine loop direction at start, in case one of the bounds
+    // changes during loop execution.
+    var incVar = Blockly.JavaScript.variableDB_.getDistinctName(
+        variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
+    code += 'var ' + incVar + ' = ';
+    if (Blockly.isNumber(increment)) {
+      code += Math.abs(increment) + ';\n';
+    } else {
+      code += 'Math.abs(' + increment + ');\n';
+    }
+    code += 'if (' + startVar + ' > ' + endVar + ') {\n';
+    code += Blockly.JavaScript.INDENT + incVar + ' = -' + incVar + ';\n';
+    code += '}\n';
+    code += 'for (' + variable0 + ' = ' + startVar + '; ' +
+        incVar + ' > 0 ? ' +
+        variable0 + ' < ' + endVar + ' : ' +
+        variable0 + ' > ' + endVar + '; ' +
+        variable0 + ' += ' + incVar + ') {\n' +
+        branch + '}\n';
+  }
+  return code;
+};
+
+
 
 Blockly.JavaScript['controls_forEach'] = function(block) {
   // For each loop.

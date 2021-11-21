@@ -2,7 +2,7 @@
 <h2 align="center">1821121_shimaoka_thesis</h2>
 
 program
-本研究のメインプログラムの動作を試しています。
+メインプログラムの動作を試していました. 現在動いていません.
 https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/program/
 
 parts
@@ -10,7 +10,7 @@ parts
 https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/parts/
 
 project
-Node.jsによるサーバの実装を試しています。
+本研究で現在メインで制作しています. 現在の動作を確認する際はこちら. 
 https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/project/
 
 ### <img src="https://icooon-mono.com/i/icon_12063/icon_120631_64.png" height="30px;" /> ゼミ発表用スライド
