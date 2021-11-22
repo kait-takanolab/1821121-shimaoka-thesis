@@ -54,13 +54,15 @@ function questionjs() {
         // 読み込みが完了した際に実行される処理
         reader.onload = function (e) {
             var xmltext = reader.result;
-            var xml = Blockly.Xml.textToDom(xmltext);
+            string = xmltext.split('@@');
+            var xml = Blockly.Xml.textToDom(string[0]);
             Blockly.Xml.domToWorkspace(xml, demoWorkspace);
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
             document.getElementById('output').innerHTML = indent(code);
+            document.getElementById('mondai').innerHTML = string[1];
             q_code = question_str(code);
         }
     }, false);
@@ -132,28 +134,53 @@ function questionjs2() {
         // 読み込みが完了した際に実行される処理
         reader.onload = function (e) {
             var xmltext = reader.result;
-            var xml = Blockly.Xml.textToDom(xmltext);
+            string = xmltext.split('@@');
+            var xml = Blockly.Xml.textToDom(string[0]);
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
             document.getElementById('question_area').innerHTML = indent(code);
+            document.getElementById('mondai').innerHTML = string[1];
             q_code = question_str(code);
          
             //testタブに文章のマッチング
-            match(code);
+            match(code,3);
         }
         
     }, false);
 }
 
+//test問題制作 難易度設定 
+function easy(){
+    var code = q_code;
+    match(code,3);
+}
+function normal(){
+    var code = q_code;
+    match(code,6);
+}
+function hard(){
+    var code = q_code;
+    match(code,9);
+}
 
-function match(code) {
+
+//ランダム生成 max: int
+function getRandomInt(max) {
+    return Math.floor(Math.random() * (max - 1+1));
+}
+
+//test問題のマッチングなど 呼び出しのコードから問題を生成し、モードの値だけ問題を生成する。
+//code : string, mode : int
+function match(code,mode) {
     //全選択肢となる部分　もしかしたらDBなどにいれこむかも
     var list1 = [
       ['for', 'while', 'do'],
       ['if', 'else', 'which'],
-      ['print', 'alert']
+      ['print', 'alert'],
+      ['break','continue'],
+      ['<','>','<=','>=','==']
     ];
     //ワードがマッチした場所を保存する
     var lista = []; 
@@ -163,8 +190,9 @@ function match(code) {
     var mbox = [];
     //何回ワードがマッチしたか保存する
     var count = 0;
-  
-  //
+    //選択肢になるリスト
+    var qbox = [];
+    //?
     var btext = code;
   
   //文字列を配列に変更
@@ -181,45 +209,52 @@ function match(code) {
             mbox[count] = ctext[k];
             lista[count] = k;
             count += 1;
-/*
-            console.log("mbox= " + mbox)
-            console.log("k= " + k);
-            console.log("lista=" + lista);
-            console.log("sbox=")
-            console.log(sbox);
-*/
             }
         }
       }
     }
-    //selectboxのインデックスを文章登場順にするためにソート処理
-    //lista.sort();
-//    console.log(lista)
+
+    if(mode > count) {
+        mode = count;
+    }
+
+    //選択肢に変更する個数と変更する箇所を設定する mode,lista
+    for(var q = 0; q < mode; q++){
+        while(true){
+            var tmp = getRandomInt(count);
+            if(!qbox.includes(tmp)){
+                qbox.push(tmp);
+                break;
+            }
+        }
+    }
+    qbox= qbox.sort();
+
     //マッチしたワード部分を選択肢に変更
-    for(let l = 0; l <lista.length; l++){
-      ctext[lista[l]] = `<select class="sele${l}"></select>`;
+    for(let l = 0; l < qbox.length; l++){
+      ctext[lista[qbox[l]]] = `<select class="sele${l}"></select>`;
     }
   
-  // 配列から文字列に変更して表示
+    // 配列から文字列に変更して表示
     ctext = (String(ctext)).replace(/\n/g, '<br>');
     ctext = (String(ctext)).replace(/,/g, '');
-//    console.log(ctext)
+
+    //文字列を表示する
     document.getElementById("test").innerHTML = indent(ctext);
   
   
   // ワードがマッチした場所に選択肢を生成する
-      for(let m = 0; m < count; m++){
+      for(let m = 0; m < qbox.length; m++){
         var select = document.querySelector(`select.sele${m}`);
-      for(let n=0; n < sbox[m].length; n++){
-        var option = document.createElement('option');
-        option.innerText = sbox[m][n];
-//        console.log(sbox[m][n])
-        if(sbox[m][n] != mbox[m])
-          option.value = n;
-        else 
-          option.value = "ans";
+        for(let n = 0; n < sbox[qbox[m]].length; n++){
+            var option = document.createElement('option');
+            option.innerText = sbox[qbox[m]][n];
+            if(sbox[qbox[m]][n] != mbox[qbox[m]])
+                option.value = n;
+            else 
+                option.value = "ans";
   
-        select.append(option);
+            select.append(option);
       }
     }
 }
@@ -332,14 +367,14 @@ function jsruntst() {
     }
 }
 
-//問題文の内容を保存する関数
+//問題文の内容を保存する関数　code:string
 function question_str(code){
     q_code = code;
     return q_code;
 }
 
 
-//indent
+//indent code:string
 
 function indent(code) {
     //インデントに利用する変数
@@ -382,8 +417,9 @@ function indent(code) {
     return sengen(code);
 }
 
+
+//関数宣言が存在する場合に，をつける code:string
 function sengen(code){
-    //関数宣言が存在する場合に，をつける
     var code2 = code.split(" ");
     if(code2[0] == "var"){
         var code3 = code.split(";");
@@ -410,7 +446,7 @@ index3.html
 function look(){
     var code = Blockly.Xml.workspaceToDom(demoWorkspace);
     var codexml = Blockly.Xml.domToText(code);
-    document.getElementById('area').innerText = codexml;
+    document.getElementById('area').innerText = look_plus(codexml);
 }
 
 //xmlをファイルに保存する
@@ -431,7 +467,12 @@ function save() {
     a.click();
 }
 
-
+//改行を加える code: string
+function look_plus(code){
+    code2 = code.split(/(?<=\>|\?=\<)/g);
+    code2 = code2.join('\n');
+    return code2;
+}
 
 
 

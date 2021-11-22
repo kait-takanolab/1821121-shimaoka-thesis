@@ -10,14 +10,14 @@ main div {
   height: 480px; /* 要素の縦幅を50%に定義 */
   width: 48%; /* 要素の横幅を50%に定義 */
   background-color: #aaa; /* 視覚化のための背景色 */
-
+  
 }
 
 .right {
 
   float: right;
-  height: 240px; /* 要素の縦幅を50%に定義 */
-  width: 48%; /* 要素の横幅を50%に定義 */
+  height: 150px; 
+  width: 60%;
 
   background-color: #ddd; /* 視覚化のための背景色 */
 
@@ -29,7 +29,10 @@ main div {
   width: 48%; /* 要素の横幅を50%に定義 */
 
   background-color: #ddd; /* 視覚化のための背景色 */
+}
 
+div {
+  overflow: auto;
 }
 
 
@@ -109,7 +112,7 @@ select:focus {
   cursor:pointer;
 }
 .panel-group{
-  height:300px;
+  height: 410px;
   border:solid 1px #CCC;
   border-top:none;
   background:#eee;

@@ -22,13 +22,14 @@
 </head>
 <body>
   
-    <p>code generate, run and test for Python and JavaScript</p>
+    <p>code generate, run and test for JavaScript</p>
+    <input type="file" id="file" onclick="questionjs()"></input>
     <button onclick="save()">Save Text</button>
     <p><a href="/index.html">prayground</a></p>
       <p><a href="/test.html">test</a></p>
   <main>
     <div id="Div"  class="left"></div>
-    <textarea id="area" readonly class="right"></textarea>
+    <div id="area" readonly class="right1"></div>
 
   </main>
 
@@ -413,11 +414,10 @@
     var demoWorkspace = Blockly.inject('Div',
       {
 //        media: 'https://unpkg.com/blockly/media/',
-        media:  './node_modules/blockly/media/',
+        media:  './blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-      demoWorkspace);
+//    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),demoWorkspace);
 
     demoWorkspace.addChangeListener(function(){
         look();

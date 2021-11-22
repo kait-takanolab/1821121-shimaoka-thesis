@@ -22,12 +22,13 @@
 </head>
 <body>
   
-  <p>code generate, run and test for Python and JavaScript</p>
+  <p>code generate, run and test for JavaScript</p>
 
   <p>
     <input type="file" id="file" onclick="questionjs2()"></input>
     <button onclick="answer2()">check</button>
     <textarea id="answer" readonly></textarea>
+    <textarea id="mondai" readonly class="right">ファイルが選択されたら問題文を表示します。</textarea>
   </p>
   <p><a href="/index.html">playground</a></p>
   <p><a href="/xml.html">xml</a></p>
@@ -70,7 +71,12 @@
     <button onclick="jsrunout()">output</button>
     <button onclick="jsruntst()">test</button>
   </p>
-
+  <p>
+    <button onclick="easy()">easy</button>
+    <button onclick="normal()">normal</button>
+    <button onclick="hard()">hard</button>
+  </p>
+    
   <main>
     <div id="BlockDiv"  class="left"></div>
     <div class="tab-panel">
@@ -477,7 +483,7 @@
     var demoWorkspace = Blockly.inject('BlockDiv',
       {
 //        media: 'https://unpkg.com/blockly/media/',
-        media:  './node_modules/blockly/media/',
+        media:  './blockly/media/',
         toolbox: document.getElementById('toolbox')
       });
 //    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
