@@ -11,6 +11,7 @@ Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
 
 //問題文章用変数　
 var q_code ="test";
+var strcode = "test";
 
 //コードの実行 (Function)
 function execution(code){
@@ -64,6 +65,7 @@ function questionjs() {
             document.getElementById('output').innerHTML = indent(code);
             document.getElementById('mondai').innerHTML = string[1];
             q_code = question_str(code);
+            strcode = string;
         }
     }, false);
 }
@@ -85,6 +87,19 @@ function check(){
 
 
 //コードによる整合性の評価
+function check2(){
+    var code1 = document.getElementById('kaitou').textContent;
+    var code2 = strcode[2];
+    var hyouka = document.getElementById("answer").textContent;
+    if(code1 == code2){
+        hyouka += "正しい";
+    }else{
+        hyouka += "誤り";
+    }
+    document.getElementById('answer').textContent = hyouka;
+    console.log(code1);
+    console.log(code2);
+}
 
 
 
@@ -143,7 +158,7 @@ function questionjs2() {
             document.getElementById('question_area').innerHTML = indent(code);
             document.getElementById('mondai').innerHTML = string[1];
             q_code = question_str(code);
-         
+            strcode = string;
             //testタブに文章のマッチング
             match(code,3);
         }
@@ -353,12 +368,18 @@ function jsruntst() {
         count = 0; 
         }
     }
-    code2 = (String(code2)).replace(/,/g, '');
+    code2 = code2.join('');
+    //code2 = (String(code2)).replace(/,/g, '');
     code2 = (String(code2)).replace(/\<br\>/g, '');
     code2 = (String(code2)).replace(/&nbsp;/g, '');
+    code2 = (String(code2)).replace(/&gt;/g, '>');
+    code2 = (String(code2)).replace(/&lt;/g, '<');
+    code2 = (String(code2)).replace(/;/g, ';\n');
+    code2 = (String(code2)).replace(/{/g, '{\n');
+    code2 = (String(code2)).replace(/}/g, '}\n');
 
-
-//    console.log(code2)
+    code2 = sengen(code2);
+    //console.log(code2);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         execution(code2);
@@ -366,6 +387,8 @@ function jsruntst() {
         alert(e);
     }
 }
+
+
 
 //問題文の内容を保存する関数　code:string
 function question_str(code){
@@ -418,6 +441,7 @@ function indent(code) {
 }
 
 
+
 //関数宣言が存在する場合に，をつける code:string
 function sengen(code){
     var code2 = code.split(" ");
@@ -430,7 +454,6 @@ function sengen(code){
     }
     return code;
 }
-
 
 
 
