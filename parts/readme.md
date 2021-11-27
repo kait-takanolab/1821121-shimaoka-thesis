@@ -375,15 +375,42 @@ test.htmlにてブロックプログラム制作の途中のxmlを保存、続�
 @@表示させる内容
 ```
 の形で用意し、それと比べさせる。
+
 1. 実行結果を表示するエリアを作成し、その文章と回答を比較する？
 - print(windows.alert)を実行結果エリアにも書き込まれるようにblocklyをいじる
+-> alertじゃなくてtextareaの内容に直接追記するように変更？
+=>document.getElementById('kaitou').textContent += i + " ";
+表示がなんとなく気に食わないけど動作自体はいい？
+Javascriptの書き方を練習できる環境としてならよい？
+
+Blockly.JavaScript.text_print=function(a){
+  return "window.alert(" + (Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''") + ");\nvar kaitou = document.getElementById('kaitou').textContent;\nkaitou += " + (Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''") + ";\n kaitou += ' ';\ndocument.getElementById('kaitou').textContent = kaitou;\n" 
+};
+
+
+Blockly.JavaScript['text_print'] = function(block) {
+  // Print statement.
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'document.getElementById('kaitou').textContent = " + msg + ";\n';
+};
+
 2. 実行結果と問題の評価基準となる文章とを自動で比較する関数を作成する？
 - 実行結果をなにかしらの変数に自動で入力されるように？
 - 例えばalert, console.logなどの文字列をみて、その前後に自動で評価用の変数に自動で保存するように実行する際につけたす？
 
+## ~11/28
 
+1. 実行結果を表示するエリアを作成し、その文章と回答を比較する？
+- print(windows.alert)を実行結果エリアにも書き込まれるようにblocklyをいじる
+-> alertじゃなくてtextareaの内容に直接追記するように変更？
+=>document.getElementById('kaitou').textContent += i + " ";
+表示がなんとなく気に食わないけど動作自体はいい？
+Javascriptの書き方を練習できる環境としてならよい？
 
+2. check(),check2()あたりの関数の動きをもう少し正しくする
 
+3. 論文にかく
 
 
 

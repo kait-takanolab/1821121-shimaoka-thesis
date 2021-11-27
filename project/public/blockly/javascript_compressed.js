@@ -111,8 +111,11 @@ Blockly.JavaScript.text_getSubstring=function(a){var b=a.getFieldValue("WHERE1")
 Blockly.JavaScript.text_changeCase=function(a){var b={UPPERCASE:".toUpperCase()",LOWERCASE:".toLowerCase()",TITLECASE:null}[a.getFieldValue("CASE")];a=Blockly.JavaScript.valueToCode(a,"TEXT",b?Blockly.JavaScript.ORDER_MEMBER:Blockly.JavaScript.ORDER_NONE)||"''";return[b?a+b:Blockly.JavaScript.provideFunction_("textToTitleCase",["function "+Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_+"(str) {","  return str.replace(/\\S+/g,","      function(txt) {return txt[0].toUpperCase() + txt.substring(1).toLowerCase();});",
 "}"])+"("+a+")",Blockly.JavaScript.ORDER_FUNCTION_CALL]};Blockly.JavaScript.text_trim=function(a){var b={LEFT:".replace(/^[\\s\\xa0]+/, '')",RIGHT:".replace(/[\\s\\xa0]+$/, '')",BOTH:".trim()"}[a.getFieldValue("MODE")];return[(Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_MEMBER)||"''")+b,Blockly.JavaScript.ORDER_FUNCTION_CALL]};
 
-Blockly.JavaScript.text_print=function(a){
-  return "window.alert(" + (Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''") + ");\nvar kaitou = document.getElementById('kaitou').textContent;\nkaitou += " + (Blockly.JavaScript.valueToCode(a,"TEXT",Blockly.JavaScript.ORDER_NONE)||"''") + ";\n kaitou += ' ';\ndocument.getElementById('kaitou').textContent = kaitou;\n" 
+Blockly.JavaScript['text_print'] = function(block) {
+  // Print statement.
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return "document.getElementById('kaitou').textContent += " + msg + " + \" \";\n";
 };
 
 

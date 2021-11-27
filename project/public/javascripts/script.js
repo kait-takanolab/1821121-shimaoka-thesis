@@ -15,7 +15,13 @@ var strcode = "test";
 
 //コードの実行 (Function)
 function execution(code){
+    kaitouran();
     Function(code)();
+}
+
+//printが存在する際にコードを付け足す
+function kaitouran(){
+    document.getElementById("kaitou").textContent = "";
 }
 
 
@@ -57,7 +63,7 @@ function questionjs() {
             var xmltext = reader.result;
             string = xmltext.split('@@');
             var xml = Blockly.Xml.textToDom(string[0]);
-            Blockly.Xml.domToWorkspace(xml, demoWorkspace);
+            //Blockly.Xml.domToWorkspace(xml, demoWorkspace);
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
@@ -92,9 +98,9 @@ function check2(){
     var code2 = strcode[2];
     var hyouka = document.getElementById("answer").textContent;
     if(code1 == code2){
-        hyouka += "正しい";
+        hyouka = "正しい";
     }else{
-        hyouka += "誤り";
+        hyouka = "誤り";
     }
     document.getElementById('answer').textContent = hyouka;
     console.log(code1);
@@ -165,6 +171,7 @@ function questionjs2() {
         
     }, false);
 }
+
 
 //test問題制作 難易度設定 
 function easy(){
