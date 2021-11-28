@@ -111,13 +111,25 @@ function check2(){
 
 //複数表示する問題の場合
 function numq(code1,code2){
+    hyouka = "";
     c1 = code1.split(' ');
     c2 = code2.split(' ');
-    hyouka = "";
-    for(var i=0;i<c2.length;i++){
-        if(c1[i] != c2[i]){
-            hyouka += i+"個目は誤り\n"
+    console.log(code1,code2,c1,c2);
+    if(c1.length != c2.length){
+        hyouka += "ループに間違いがあります、"
+        if(c1.length > c2.length){
+            hyouka += "回答が多いです\n"
+        }else{
+            hyouka += "回答が少ないです\n"
         }
+    }
+    for(var i=0; i < c2.length; i++){
+        if(c1[i] != c2[i]){
+            hyouka += i+1 + "個目は誤り\n"
+        }
+    }
+    if(c2.length < c1.length){
+        hyouka += c2.length + "以降は誤り\n"
     }
     if(hyouka != ""){
         return hyouka;
