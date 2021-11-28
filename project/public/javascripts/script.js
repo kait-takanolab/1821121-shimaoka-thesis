@@ -36,7 +36,7 @@ index.html
 */
 function jsruncode(){
         // Generate JavaScript code and run it.
-        window.LoopTrap = 1000;
+        window.LoopTrap = 10000;
         Blockly.JavaScript.INFINITE_LOOP_TRAP =
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = document.getElementById("outcode").innerText;
@@ -44,7 +44,7 @@ function jsruncode(){
         try {
             execution(code);
         } catch (e) {
-            alert(e);
+            document.getElementById('kaitou').textContent = e;
         }
 }
 
@@ -63,9 +63,9 @@ function questionjs() {
             var xmltext = reader.result;
             string = xmltext.split('@@');
             var xml = Blockly.Xml.textToDom(string[0]);
-            //Blockly.Xml.domToWorkspace(xml, demoWorkspace);
             var testWorkspace = new Blockly.Workspace();
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
+            Blockly.Xml.domToWorkspace(xml, demoWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
             document.getElementById('output').innerHTML = indent(code);
@@ -79,7 +79,7 @@ function questionjs() {
 //コードの構文的な正しさ
 function check(){
     try{
-        window.LoopTrap = 1000;
+        window.LoopTrap = 10000;
         Blockly.JavaScript.INFINITE_LOOP_TRAP =
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = document.getElementById("outcode").innerText;
@@ -98,16 +98,33 @@ function check2(){
     var code2 = strcode[2];
     var hyouka = document.getElementById("answer").textContent;
     if(code1 == code2){
-        hyouka = "正しい";
+        hyouka = "実行結果は正しい";
     }else{
-        hyouka = "誤り";
+        if(strcode[3]=="num"){
+            hyouka = numq(code1,code2);
+        }else{
+            var hyouka = "実行結果は誤り\n";
+        }
     }
     document.getElementById('answer').textContent = hyouka;
-    console.log(code1);
-    console.log(code2);
 }
 
-
+//複数表示する問題の場合
+function numq(code1,code2){
+    c1 = code1.split(' ');
+    c2 = code2.split(' ');
+    hyouka = "";
+    for(var i=0;i<c2.length;i++){
+        if(c1[i] != c2[i]){
+            hyouka += i+"個目は誤り\n"
+        }
+    }
+    if(hyouka != ""){
+        return hyouka;
+    }else{
+        return "実行結果は正しい";
+    }
+}
 
 
 
@@ -127,15 +144,13 @@ test.html
 function generateJS() {
     // Generate JavaScript code and run it.
     try {
-        window.LoopTrap = 1000;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP =
-            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        window.LoopTrap = 10000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
         var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
 //        code = code.replace('\\',"");
-
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     } catch (e) {
-        alert(e);
+        document.getElementById('kaitou').textContent = e;
         return;
     }
     document.getElementById('output').innerHTML = indent(code);
@@ -158,6 +173,7 @@ function questionjs2() {
             string = xmltext.split('@@');
             var xml = Blockly.Xml.textToDom(string[0]);
             var testWorkspace = new Blockly.Workspace();
+            Blockly.Xml.domToWorkspace(xml, demoWorkspace);
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
@@ -250,7 +266,17 @@ function match(code,mode) {
             }
         }
     }
-    qbox= qbox.sort();
+
+    //問題数の順番を上から順番になるようにソートする
+    for(var i=0;i<qbox.length;i++){
+        for(var j=0;j < qbox.length;j++){
+            if(lista[qbox[i]] < lista[qbox[j]]){
+                var tmp = qbox[i]
+                qbox[i] = qbox[j]
+                qbox[j] = tmp
+            }
+        }
+    }
 
     //マッチしたワード部分を選択肢に変更
     for(let l = 0; l < qbox.length; l++){
@@ -295,17 +321,20 @@ function match(code,mode) {
 
 function answer2(){
     //正解数をカウントする
-  var count = "0";
-  //ループ回数をカウント
-  var loop ="0";
-  //セレクトボックスがいくつあるのかをカウント
-  //セレクトボックスがなかったらBreak
-  while(1){
+    var count = 0;
+    //ループ回数をカウント
+    var loop = 0;
+    //正解した問題番号を保存する
+    var kotae =[];
+    //セレクトボックスがいくつあるのかをカウント
+    //セレクトボックスがなかったらBreak
+    while(1){
     var select = document.querySelector(`select.sele${loop}`);
     if(select != null){
       //セレクトボックスのValueを入手（正解ならans, それ以外だと数字が返る）
       if(select.value == "ans"){
         //何問正解しているかを合計
+        kotae[count] =  loop+1;
         count++;
       }
     }else{
@@ -315,13 +344,14 @@ function answer2(){
   }
 
   //判定結果を表示
-  document.getElementById("answer").textContent = count + "問正解";
+  document.getElementById("answer").textContent = count + "問正解\n正解した問題は:" + kotae;
+  console.log(kotae)
 }
 
 
 function jsrunque() {
     // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
+    window.LoopTrap = 10000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
         'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
     var code = document.getElementById("question_area").innerText;
@@ -329,13 +359,13 @@ function jsrunque() {
     try {
         execution(code);
     } catch (e) {
-        alert(e);
+        document.getElementById('kaitou').textContent = e;
     }
 }
 
 function jsrunout() {
     // Generate JavaScript code and run it.
-    window.LoopTrap = 1000;
+    window.LoopTrap = 10000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
         'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
     var code = document.getElementById("output").innerText;
@@ -343,14 +373,14 @@ function jsrunout() {
     try {
         execution(code);
     } catch (e) {
-        alert(e);
+        document.getElementById('kaitou').textContent = e;
     }
 }
 
 function jsruntst() {
     var count = 0;
 
-    window.LoopTrap = 1000;
+    window.LoopTrap = 10000;
     Blockly.JavaScript.INFINITE_LOOP_TRAP =
         'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
     var code = document.getElementById("test").innerHTML;
@@ -391,7 +421,7 @@ function jsruntst() {
     try {
         execution(code2);
     }catch (e) {
-        alert(e);
+        document.getElementById('kaitou').textContent = e;
     }
 }
 
