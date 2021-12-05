@@ -116,11 +116,11 @@ function numq(code1,code2){
     c2 = code2.split(' ');
     console.log(code1,code2,c1,c2);
     if(c1.length != c2.length){
-        hyouka += "ループに間違いがあります、"
+        hyouka += "回答に誤りがあり、"
         if(c1.length > c2.length){
-            hyouka += "回答が多いです\n"
+            hyouka += "回答が過分に存在します\n"
         }else{
-            hyouka += "回答が少ないです\n"
+            hyouka += "回答が不足しています\n"
         }
     }
     for(var i=0; i < c2.length; i++){
