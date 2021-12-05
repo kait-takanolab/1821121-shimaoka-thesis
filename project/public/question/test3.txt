@@ -1,0 +1,60 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<variables>
+<variable id="TnoJ0y(J8X5zlw[3o7`~">
+count</variable>
+<variable id="$JCUn/?vE/m[pU86I3^?">
+i</variable>
+</variables>
+<block type="variables_set" id="?+75jPF3W8aLuxXrZqMs" x="57" y="93">
+<field name="VAR" id="TnoJ0y(J8X5zlw[3o7`~">
+count</field>
+<value name="VALUE">
+<block type="math_number" id="eI!.vw$6Nb~sD^.?_C#^">
+<field name="NUM">
+10</field>
+</block>
+</value>
+<next>
+<block type="controls_for1" id="aH}3[7-{+,W!IIALZOY8">
+<field name="VAR" id="$JCUn/?vE/m[pU86I3^?">
+i</field>
+<value name="FROM">
+<block type="math_number" id="zGS3=*d{ch-qR}T[ggCS">
+<field name="NUM">
+1</field>
+</block>
+</value>
+<value name="TO">
+<block type="variables_get" id="-f~#oU,TRbbR*D{NEH33">
+<field name="VAR" id="TnoJ0y(J8X5zlw[3o7`~">
+count</field>
+</block>
+</value>
+<value name="BY">
+<block type="math_number" id="yV;PY!?H-$ZDdt(B`-R!">
+<field name="NUM">
+1</field>
+</block>
+</value>
+<statement name="DO">
+<block type="text_print" id="!1n!~M)?EmQGZs[Su(1a">
+<value name="TEXT">
+<shadow type="text" id="{~cA*sJObK0}tT%`4/_i">
+<field name="TEXT">
+abc</field>
+</shadow>
+<block type="variables_get" id="Q?/EJs44bIrcZEa2(mtd">
+<field name="VAR" id="$JCUn/?vE/m[pU86I3^?">
+i</field>
+</block>
+</value>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</xml>
+@@問題文：
+
+繰り返しを文を利用し、1から10までの数字を順番に表示せよ。
+@@1 2 3 4 5 6 7 8 9 10 @@loop

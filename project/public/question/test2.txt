@@ -1,18 +1,53 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-<block type="text_print" id="kr1%[D%OA%mfmMw@WmA)" x="62" y="219">
-<value name="TEXT">
-<shadow type="text" id="ZrUNs`$1u8OQDGou,UOc">
-<field name="TEXT">
-Hello, World！</field>
-</shadow>
-</value>
-</block>
+  <block type="controls_if" inline="false" x="20" y="20">
+    <mutation else="1"></mutation>
+    <value name="IF0">
+      <block type="logic_compare" inline="true">
+        <field name="OP">EQ</field>
+        <value name="A">
+          <block type="math_arithmetic" inline="true">
+            <field name="OP">MULTIPLY</field>
+            <value name="A">
+              <block type="math_number">
+                <field name="NUM">6</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number">
+                <field name="NUM">7</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">42</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="DO0">
+      <block type="text_print" inline="false">
+        <value name="TEXT">
+          <block type="text">
+            <field name="TEXT">Don't panic</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="ELSE">
+      <block type="text_print" inline="false">
+        <value name="TEXT">
+          <block type="text">
+            <field name="TEXT">Panic</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
 </xml>
+@@問題文:
 
-@@問題文：
+計算が正しい場合にはDon't Panic, 誤っている場合にはPanicを表示する
 
-文字列 Hello, World! を表示せよ。
-
-@@Hello, World!
-
-@@
+@@Don't Panic,Panic@@if

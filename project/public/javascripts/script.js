@@ -486,6 +486,15 @@ function indent(code) {
     
     //行数ループ
     for (let i = 0; i < text2.length; i++) {
+
+        //コンマを一度置換しておき、あとで直します。
+        var result = text2[i].indexOf(',');
+        do{
+            text2[i] = text2[i].replace(",", "!exchange")
+            result = text2[i].indexOf(',', result)
+        }while(result != -1)
+
+
         //インデントの数を減少
         if(text2[i].includes(dec)){
             count--;
@@ -506,26 +515,20 @@ function indent(code) {
             //      console.log(count);
         }
         
-        text2[i] = text2[i] + end;
+        if(i != text2.length -1){
+            text2[i] = text2[i] + end;
+        }
     }
-    code = String(text2).replace(/,/g, "");
-    return sengen(code);
-}
 
-
-
-//関数宣言が存在する場合に，をつける code:string
-function sengen(code){
-    var code2 = code.split(" ");
-    if(code2[0] == "var"){
-        var code3 = code.split(";");
-        code3[0] = code3[0].replace(/\s/g,",");
-        code3[0] = code3[0].replace(","," ");
-        code3 = code3.join(";");
-        code = code3;
-    }
+    code = text2.join();
+    code = code.replace(/,/g, "");
+    code = code.replace(/!exchange/g, ",");
+    console.log(code)
     return code;
 }
+
+
+
 
 
 
@@ -577,6 +580,18 @@ function look_plus(code){
 
 /*
 memoと使わなくなった関数
+//関数宣言が存在する場合に，をつける code:string
+function sengen(code){
+    var code2 = code.split(" ");
+    if(code2[0] == "var"){
+        var code3 = code.split(";");
+        code3[0] = code3[0].replace(/\s/g,",");
+        code3[0] = code3[0].replace(","," ");
+        code3 = code3.join(";");
+        code = code3;
+    }
+    return code;
+}
 
 
 //iframe test

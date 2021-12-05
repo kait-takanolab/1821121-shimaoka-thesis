@@ -1,13 +1,8 @@
 
 <h2 align="center">1821121_shimaoka_thesis</h2>
-
-program
-メインプログラムの動作を試していました. 現在動いていません.
-https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/program/
-
-parts
-本研究の細かなプログラムを制作している場所です.
-https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/parts/
+アンケート
+本研究のためのアンケートをお願いしています。
+https://docs.google.com/forms/d/1WGStAj6WJHIHjQpS8wCH71bcR7sR1dv-Trxd0u7zO3o
 
 project
 本研究で現在メインで制作しています. 現在の動作を確認する際はこちら. 
