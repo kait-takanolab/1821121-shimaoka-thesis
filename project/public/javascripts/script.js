@@ -19,7 +19,7 @@ function execution(code){
     Function(code)();
 }
 
-//printが存在する際にコードを付け足す
+//
 function kaitouran(){
     document.getElementById("kaitou").textContent = "";
 }
@@ -102,6 +102,8 @@ function check2(){
     }else{
         if(strcode[3]=="num"){
             hyouka = numq(code1,code2);
+        }else if(strcode[3]=="if"){
+            hyouka = twice(code1,code2);
         }else{
             var hyouka = "実行結果は誤り\n";
         }
@@ -114,7 +116,7 @@ function numq(code1,code2){
     hyouka = "";
     c1 = code1.split(' ');
     c2 = code2.split(' ');
-    console.log(code1,code2,c1,c2);
+
     if(c1.length != c2.length){
         hyouka += "回答に誤りがあり、"
         if(c1.length > c2.length){
@@ -123,14 +125,17 @@ function numq(code1,code2){
             hyouka += "回答が不足しています\n"
         }
     }
+
     for(var i=0; i < c2.length; i++){
         if(c1[i] != c2[i]){
             hyouka += i+1 + "個目は誤り\n"
         }
     }
+
     if(c2.length < c1.length){
         hyouka += c2.length + "以降は誤り\n"
     }
+
     if(hyouka != ""){
         return hyouka;
     }else{
@@ -138,6 +143,24 @@ function numq(code1,code2){
     }
 }
 
+//実行結果が２種類存在する場合？
+function twice(code1,code2){
+    hyouka = "";
+    c1 = code1.split(' ');
+    c2 = code2.split(',');
+
+    if(code1!=code2[0]){
+        hyouka += "誤り"
+    }
+    if(code1!=code2[1]){
+        hyouka += "誤り"
+    }
+    if(hyouka != ""){
+        return hyouka;
+    }else{
+        return "実行結果は正しい";
+    }
+}
 
 
 /*

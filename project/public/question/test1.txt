@@ -46,3 +46,8 @@
     </statement>
   </block>
 </xml>
+@@問題文:
+
+計算が正しい場合にはDon't Panic, 誤っている場合にはPanicを表示する
+
+@@Don't Panic,Panic@@if
