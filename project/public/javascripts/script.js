@@ -145,22 +145,40 @@ function numq(code1,code2){
 
 //実行結果が２種類存在する場合？
 function twice(code1,code2){
-    hyouka = "";
-    c1 = code1.split(' ');
+    //変数の準備
+    var hyouka = "";
+    var h = 0;
     c2 = code2.split(',');
 
-    if(code1!=code2[0]){
-        hyouka += "誤り"
+    //解答と答えの比較
+    if(code1==c2[0]){
+        h = 1;
     }
-    if(code1!=code2[1]){
-        hyouka += "誤り"
+    if(code1==c2[1]){
+        h = 2;
     }
+
+    //正誤の判断
+    switch(h){
+        case 1://条件分岐が正しい場合の実行結果と比較
+            hyouka += "実行結果１と一致";
+            break;
+        case 2://条件分岐は誤りの場合の実行結果と比較
+            hyouka += "実行結果２と一致";
+            break;
+        default://結果は誤り
+            hyouka += "誤り";
+            break;
+    }
+
+    //結果をリターン
     if(hyouka != ""){
         return hyouka;
     }else{
         return "実行結果は正しい";
     }
 }
+
 
 
 /*
@@ -267,6 +285,10 @@ function match(code,mode) {
     var qbox = [];
     //?
     var btext = code;
+
+    btext = btext.replace(/,/g,"!exchange")
+
+
   
   //文字列を配列に変更
     ctext = btext.split(/(\s|\(|\)|\;|\.|\n)/);
@@ -319,11 +341,17 @@ function match(code,mode) {
     }
   
     // 配列から文字列に変更して表示
+
     ctext = (String(ctext)).replace(/\n/g, '<br>');
     ctext = (String(ctext)).replace(/,/g, '');
-
+    ctext = (String(ctext)).replace(/!exchange/g, ',');
+    
+//    console.log("2:  "+ctext)
     //文字列を表示する
-    document.getElementById("test").innerHTML = indent(ctext);
+    code = indent(ctext);
+
+
+    document.getElementById("test").innerHTML = code;
   
   
   // ワードがマッチした場所に選択肢を生成する
@@ -380,7 +408,6 @@ function answer2(){
 
   //判定結果を表示
   document.getElementById("answer").textContent = count + "問正解\n正解した問題は:" + kotae;
-  console.log(kotae)
 }
 
 
@@ -450,7 +477,6 @@ function jsruntst() {
     code2 = (String(code2)).replace(/{/g, '{\n');
     code2 = (String(code2)).replace(/}/g, '}\n');
 
-    code2 = sengen(code2);
     //console.log(code2);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
@@ -519,16 +545,26 @@ function indent(code) {
             text2[i] = text2[i] + end;
         }
     }
-
+    
     code = text2.join();
     code = code.replace(/,/g, "");
     code = code.replace(/!exchange/g, ",");
-    console.log(code)
     return code;
 }
 
 
 
+function sengen(code){
+    var code2 = code.split(" ");
+    if(code2[0] == "var"){
+        var code3 = code.split(";");
+        code3[0] = code3[0].replace(/\s/g,",");
+        code3[0] = code3[0].replace(","," ");
+        code3 = code3.join(";");
+        code = code3;
+    }
+    return code;
+}
 
 
 
@@ -581,17 +617,6 @@ function look_plus(code){
 /*
 memoと使わなくなった関数
 //関数宣言が存在する場合に，をつける code:string
-function sengen(code){
-    var code2 = code.split(" ");
-    if(code2[0] == "var"){
-        var code3 = code.split(";");
-        code3[0] = code3[0].replace(/\s/g,",");
-        code3[0] = code3[0].replace(","," ");
-        code3 = code3.join(";");
-        code = code3;
-    }
-    return code;
-}
 
 
 //iframe test
@@ -828,7 +853,5 @@ function anaaki(code){
     
 
 */
-
-
 
 

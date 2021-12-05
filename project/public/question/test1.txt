@@ -2,17 +2,14 @@
     <block type="text_print" id="kr1%[D%OA%mfmMw@WmA)" x="62" y="219">
     <value name="TEXT">
     <shadow type="text" id="ZrUNs`$1u8OQDGou,UOc">
-    <field name="TEXT">
-    Hello, World！</field>
+    <field name="TEXT">Hello, World！</field>
     </shadow>
     </value>
     </block>
     </xml>
     
-    @@問題文：
+@@問題文：
     
-    文字列 Hello, World! を表示せよ。
+文字列 Hello, World! を表示せよ。
     
-    @@Hello, World!
-    
-    @@
+@@Hello, World! @@

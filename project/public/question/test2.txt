@@ -48,6 +48,6 @@
 </xml>
 @@問題文:
 
-計算が正しい場合にはDon't Panic, 誤っている場合にはPanicを表示する
+計算が正しい場合には"Don't panic", 誤っている場合には"Panic"を表示する条件分岐を作成せよ
 
-@@Don't Panic,Panic@@if
+@@Don't panic ,Panic @@if
