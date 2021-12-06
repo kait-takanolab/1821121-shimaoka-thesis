@@ -10,6 +10,6 @@
     
 @@問題文：
     
-文字列 Hello, World! を表示せよ。
+文字列 "Hello, World!" を表示せよ。
     
 @@Hello, World! @@
