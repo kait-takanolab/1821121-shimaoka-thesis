@@ -488,7 +488,10 @@ https://docs.google.com/forms/d/1WGStAj6WJHIHjQpS8wCH71bcR7sR1dv-Trxd0u7zO3o
 2. テキストを表示する問題１の場合において、現在だと穴埋めなどにする箇所がない
 printやalert、console.logなどの関数名を表示していたほうがいい
 
-
+##
+Logicなどの名称を日本語のほうがいい
+ifなどは英語のまま
+ifブロックの説明は日本語がいい
 
 # thema
 title 3 thema
