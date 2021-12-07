@@ -489,9 +489,9 @@ https://docs.google.com/forms/d/1WGStAj6WJHIHjQpS8wCH71bcR7sR1dv-Trxd0u7zO3o
 printやalert、console.logなどの関数名を表示していたほうがいい
 
 ##
-Logicなどの名称を日本語のほうがいい
-ifなどは英語のまま
-ifブロックの説明は日本語がいい
+"alert"で表示し、indexOfなどで"alert"を発見したら、それをreplaceする？
+
+
 
 # thema
 title 3 thema
