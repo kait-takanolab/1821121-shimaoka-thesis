@@ -271,7 +271,7 @@ function match(code,mode) {
       ['if', 'else', 'which'],
       ['print', 'alert'],
       ['break','continue'],
-      ['<','>','<=','>=','==']
+      ['<','>','<=','>=','==','!=']
     ];
     //ワードがマッチした場所を保存する
     var lista = []; 
@@ -385,7 +385,7 @@ function match(code,mode) {
 function answer2(){
     //正解数をカウントする
     var count = 0;
-    //ループ回数をカウント
+    //ループ回数（問題数）をカウント
     var loop = 0;
     //正解した問題番号を保存する
     var kotae =[];
