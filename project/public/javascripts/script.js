@@ -271,8 +271,11 @@ function match(code,mode) {
       ['if', 'else', 'which'],
       ['print', 'alert'],
       ['break','continue'],
-      ['<','>','<=','>=','==','!=']
+      ['<','>','<=','>=','==','!='],
+      ['<','>','<=','>=','=='],
+      ["getElementById('kaitou').textContent",'write','scripts']
     ];
+
     //ワードがマッチした場所を保存する
     var lista = []; 
     //マッチしたワードを含む選択肢を保存する
