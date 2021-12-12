@@ -76,23 +76,24 @@ function questionjs() {
     }, false);
 }
 
-//コードの構文的な正しさ
+//評価を行うcheck2(),answer2()を同時に実行し結果をどうたら　test.html
+function hyouka(){
+    var hyouka1 = "";
+    var hyouka2 = "";
+    hyouka1 = answer2();
+    hyouka2 = check2();
+    document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka2;
+}
+
+//check2 index.html
 function check(){
-    try{
-        window.LoopTrap = 10000;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP =
-            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var code = document.getElementById("outcode").innerText;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-        execution(code);
-        document.getElementById('check').innerText = "good";
-    }catch{
-        document.getElementById('check').innerText = "bad";
-    }
+    var hyouka = "";
+    hyouka = check2();
+    document.getElementById("answer").textContent = hyouka;
 }
 
 
-//コードによる整合性の評価
+//コードによる整合性の
 function check2(){
     var code1 = document.getElementById('kaitou').textContent;
     var code2 = strcode[2];
@@ -105,10 +106,10 @@ function check2(){
         }else if(strcode[3]=="if"){
             hyouka = twice(code1,code2);
         }else{
-            var hyouka = "実行結果は誤り\n";
+            var hyouka = "実行結果は間違い\n";
         }
     }
-    document.getElementById('answer').textContent = hyouka;
+    return hyouka;
 }
 
 //複数表示する問題の場合
@@ -128,12 +129,12 @@ function numq(code1,code2){
 
     for(var i=0; i < c2.length; i++){
         if(c1[i] != c2[i]){
-            hyouka += i+1 + "個目は誤り\n"
+            hyouka += i+1 + "個目は間違い\n"
         }
     }
 
     if(c2.length < c1.length){
-        hyouka += c2.length + "以降は誤り\n"
+        hyouka += c2.length + "以降は間違い\n"
     }
 
     if(hyouka != ""){
@@ -410,7 +411,7 @@ function answer2(){
   }
 
   //判定結果を表示
-  document.getElementById("answer").textContent = count + "問正解\n正解した問題は:" + kotae;
+  return count + "問正解\n正解した問題は:" + kotae;
 }
 
 

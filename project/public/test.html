@@ -24,11 +24,12 @@
   
   <p>code generate, run and test for JavaScript</p>
 
+
   <p>
     <input type="file" id="file" onclick="questionjs2()"></input>
-    <button onclick="answer2()">check</button>
-    <button onclick="check2()">check2</button>
-    <textarea id="answer" readonly class="right2">評価します</textarea>
+    <button onclick="hyouka()">採点</button>
+
+    <textarea id="answer" readonly class="right">評価します</textarea>
     <textarea id="mondai" readonly class="right">ファイルが選択されたら問題文を表示します。</textarea>
     <textarea id="kaitou" readonly class="right">実行結果を表示します</textarea>
   </p>
@@ -69,7 +70,7 @@
   </p>  
 -->
   <p>
-    <button onclick="jsrunque()">question</button>
+    <button onclick="jsrunque()">example</button>
     <button onclick="jsrunout()">output</button>
     <button onclick="jsruntst()">test</button>
   </p>
@@ -84,16 +85,16 @@
     <div class="tab-panel">
         <!--タブ-->
         <ul class="tab-group">
-            <li class="tab tab-A">Question</li>
+            <li class="tab tab-A is-active">test</li>
             <li class="tab tab-B">output</li>
-            <li class="tab tab-C is-active">test</li>
+            <li class="tab tab-C">example</li>
         </ul>
         
         <!--タブを切り替えて表示するコンテンツ-->
         <div class="panel-group">
-            <div id="question_area" class="panel tab-A">Content-A</div>
+            <div id="test" class="panel tab-A is-show">Content-A</div>
             <div id="output" class="panel tab-B">Content-B</div>
-            <div id="test" class="panel tab-C is-show">Content-C</div>
+            <div id="question_area" class="panel tab-C">Content-C</div>
         </div>
     </div>
 
