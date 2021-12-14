@@ -76,12 +76,70 @@ function questionjs() {
     }, false);
 }
 
+//誤答した解答の説明を加える
+function gotou(saiten){
+    var hyouka ="";
+    //saiten[].lengthの回数ループする
+    for(var i=0;i<saiten.length;i++){
+        switch(saiten[i][1]){
+            case "<":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "<=":
+                hyouka += saiten[i] + "問目：
+                break;
+            case ">":
+                hyouka += saiten[i] + "問目：a">"b の場合、bの値を含まないbより大きい値をaがとっている場合\n";
+                break;
+            case ">=":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "==":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "!=":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "for":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "while":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "do":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "if":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "else":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "switch":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "break":
+                hyouka += saiten[i] + "問目：
+                break;
+            case "continue":
+                hyouka += saiten[i] + "問目：
+                break;
+            default:
+                break;
+        }
+    }
+        return hyouka;
+}
+
+
+
 //評価を行うcheck2(),answer2()を同時に実行し結果をどうたら　test.html
 function hyouka(){
     var hyouka1 = "";
     var hyouka2 = "";
-    hyouka1 = answer2();
+    var {hyouka1,saiten} = answer2();
     hyouka2 = check2();
+    hyouka3 = gotou(saiten);
     document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka2;
 }
 
@@ -269,12 +327,10 @@ function match(code,mode) {
     //全選択肢となる部分　もしかしたらDBなどにいれこむかも
     var list1 = [
       ['for', 'while', 'do'],
-      ['if', 'else', 'which'],
-      ['print', 'alert'],
+      ['if', 'else', 'switch'],
       ['break','continue'],
       ['<','>','<=','>=','==','!='],
-      ['<','>','<=','>=','=='],
-      ["getElementById('kaitou').textContent",'write','scripts']
+      ['<','>','<=','>=','==']
     ];
 
     //ワードがマッチした場所を保存する
@@ -296,7 +352,6 @@ function match(code,mode) {
   
   //文字列を配列に変更
     ctext = btext.split(/(\s|\(|\)|\;|\.|\n)/);
-  //  console.log(ctext);
   
   //問題とのマッチングループ
   
@@ -368,7 +423,7 @@ function match(code,mode) {
                 option.value = n;
             else 
                 option.value = "ans";
-  
+
             select.append(option);
       }
     }
@@ -393,16 +448,21 @@ function answer2(){
     var loop = 0;
     //正解した問題番号を保存する
     var kotae =[];
+    //選ばれた解答を保存したい
+    var ans = [];
     //セレクトボックスがいくつあるのかをカウント
     //セレクトボックスがなかったらBreak
     while(1){
     var select = document.querySelector(`select.sele${loop}`);
     if(select != null){
       //セレクトボックスのValueを入手（正解ならans, それ以外だと数字が返る）
-      if(select.value == "ans"){
+      idx = select.selectedIndex;
+      if(select.options[idx].value == "ans"){
         //何問正解しているかを合計
         kotae[count] =  loop+1;
         count++;
+      }else{
+        ans[loop] = [loop+1,select.options[idx].text];
       }
     }else{
       break;
@@ -411,7 +471,10 @@ function answer2(){
   }
 
   //判定結果を表示
-  return count + "問正解\n正解した問題は:" + kotae;
+  return {
+      hyouka1: count + "問正解\n正解した問題は:" + kotae,
+      saiten: ans
+    };
 }
 
 
