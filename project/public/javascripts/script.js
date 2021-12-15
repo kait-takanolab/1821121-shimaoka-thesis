@@ -147,7 +147,11 @@ function saiten(){
     var {hyouka1,kaisetu} = answer2();
     hyouka2 = check2();
     hyouka3 = gotou(kaisetu);
-    document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka3 + "\n" + hyouka2;
+    if(hyouka2 != "実行結果を表示します"){
+        document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka3 + "\n";
+    }else{
+        document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka3 + "\n" + hyouka2;
+    }
 }
 
 //check2 index.html
@@ -296,12 +300,12 @@ function questionjs2() {
             Blockly.Xml.domToWorkspace(xml, testWorkspace);
             var code = Blockly.JavaScript.workspaceToCode(testWorkspace);
 //            code = code.replace('\\',"");
-            document.getElementById('question_area').innerHTML = indent(code);
+//            document.getElementById('question_area').innerHTML = indent(code);
             document.getElementById('mondai').innerHTML = string[1];
             q_code = question_str(code);
             strcode = string;
             //testタブに文章のマッチング
-            match(code,3);
+            match(code,3,1);
         }
         
     }, false);
@@ -311,15 +315,15 @@ function questionjs2() {
 //test問題制作 難易度設定 
 function easy(){
     var code = q_code;
-    match(code,3);
+    match(code,3,1);
 }
 function normal(){
     var code = q_code;
-    match(code,6);
+    match(code,6,1);
 }
 function hard(){
     var code = q_code;
-    match(code,9);
+    match(code,3,2);
 }
 
 
@@ -328,16 +332,47 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * (max - 1+1));
 }
 
+//ランダムで並び替える  list2[i].length? 基本は3 :0,1,2
+function getRandomList(array){
+    for(var i = (array.length - 1); 0 < i; i--){
+
+        // 0〜(i+1)の範囲で値を取得
+        var r = Math.floor(Math.random() * (i + 1));
+    
+        // 要素の並び替えを実行
+        var tmp = array[i];
+        array[i] = array[r];
+        array[r] = tmp;
+      }
+      return array;
+    }
+
+
 //test問題のマッチングなど 呼び出しのコードから問題を生成し、モードの値だけ問題を生成する。
 //code : string, mode : int
-function match(code,mode) {
+function match(code,mode,level) {
     //全選択肢となる部分　もしかしたらDBなどにいれこむかも
     var list1 = [
-      ['for', 'while', 'do'],
-      ['if', 'else', 'switch'],
-      ['break','continue'],
-      ['<','>','<=','>=','==','!='],
-      ['<','>','<=','>=','==']
+        ['<','>','<=','>=','==','!='],
+        ["+","-","*","/","%"],
+        ['for', 'while', 'do'],
+        ['if', 'else', 'switch'],
+        ['break','continue'],
+        ['true','false'],
+        ['?',':'],
+        ['sqrt','abs','log','exp','pow'],
+        ['sin','cos','tan'],
+        ['asin','acos','atan','atan2'],
+        ['PI','E'],
+        ['round','ceil','floor','random'],
+        ['length','indexOf','charAt','slice'],
+        ['toUpperCase','toLowerCase','textToTitleCase'],
+        ['trim','replace','split'],
+        ['textCount','textReplace'],
+        ['alert','prompt','print'],
+        ['sort','revserse','length'],
+//        ['var','const','let'],
+        ['funtion','return']
     ];
 
     //ワードがマッチした場所を保存する
@@ -418,27 +453,87 @@ function match(code,mode) {
 
 
     document.getElementById("test").innerHTML = code;
-  
-  
-  // ワードがマッチした場所に選択肢を生成する
-      for(let m = 0; m < qbox.length; m++){
-        var select = document.querySelector(`select.sele${m}`);
-        for(let n = 0; n < sbox[qbox[m]].length; n++){
-            var option = document.createElement('option');
-            option.innerText = sbox[qbox[m]][n];
-            if(sbox[qbox[m]][n] != mbox[qbox[m]])
-                option.value = n;
-            else 
-                option.value = "ans";
 
-            select.append(option);
-      }
+    
+    if(level == 2){
+        //level2用にlist2を作成
+        var list2 = new Array(3);
+        var z=-1;
+        for(let y = 0; y < 3; y++) {
+            list2[y] = new Array(3).fill(0);
+        }
+        //正答をリストに入力
+        for(i=0;i<qbox.length;i++){
+            list2[i][0] = mbox[qbox[i]];
+        }
+        //誤答をリストに入力
+        for(i=0;i<qbox.length;i++){
+            for(j=1;j<3;j++){
+                
+                do{
+                    //ランダムに選択肢から抽出
+                    x = getRandomInt(list1.length);
+                    y = getRandomInt(list1[x].length);
+                    tmp = list1[x][y];
+                    //同じ問題に選ばれるリスト内でかぶりがあるかをチェック
+                    for(k=0;k<list2[i].length;k++){
+                        //選ばれたワードとリストにあるワードが一致した場合場所を記憶
+                        if(tmp == list2[i][k]){
+                            z=k;
+                            break;
+                        }
+                        //選ばれたワードと過去に一致した箇所のワードが不一致になれば解消したと判断
+                        if(tmp != list2[i][z]){
+                            z=-1;
+                        }
+                    }
+                }while(z>=0);
+                z=-1;
+                list2[i][j] = tmp;
+            }
+        }
+
+        //選択肢の順番を変更するようにする
+        for(i=0;i<list2.length;i++){
+            list2[i] = getRandomList(list2[i]);
+        }
+
+        //level2　中級者向けに異なるカテゴリーが問題として提示される 
+        for(let m = 0; m < qbox.length; m++){
+            var select = document.querySelector(`select.sele${m}`);
+            for(let n = 0; n < list2[m].length; n++){
+                var option = document.createElement('option');
+                option.innerText = list2[m][n];
+                if(list2[m][n] != mbox[qbox[m]])
+                    option.value = n;
+                else 
+                    option.value = "ans";
+    
+                select.append(option);
+          }
+        }
+    }else{
+        //level1 ワードがマッチした場所に選択肢を生成する(同じカテゴリー)
+            for(let m = 0; m < qbox.length; m++){
+              var select = document.querySelector(`select.sele${m}`);
+              for(let n = 0; n < sbox[qbox[m]].length; n++){
+                  var option = document.createElement('option');
+                  option.innerText = sbox[qbox[m]][n];
+                  if(sbox[qbox[m]][n] != mbox[qbox[m]])
+                      option.value = n;
+                  else 
+                      option.value = "ans";
+      
+                  select.append(option);
+            }
+          }
     }
 }
 
-//        document.getElementById('test').innerHTML = 
-//               "<iframe src= \"./question/" + list + " height=\"300\" width=\"50%\"></iframe>";
-  
+
+
+
+
 
 
 /*
@@ -555,9 +650,12 @@ function jsruntst() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         execution(code2);
+        hyouka = check2();
     }catch (e) {
         document.getElementById('kaitou').textContent = e;
+        hyouka = "\n実行結果はエラー!"
     }
+    document.getElementById("answer").textContent += hyouka; 
 }
 
 

@@ -6,7 +6,7 @@
   <script src="./blockly/blockly_compressed.js"></script>
   <script src="./blockly/blocks_compressed.js"></script>
   <script src="./blockly/javascript_compressed.js"></script>
-  <script src="./blockly/msg/en.js"></script>
+  <script src="./blockly/msg/ja.js"></script>
   <script src="./javascripts/script.js"></script>
   <link rel="stylesheet" href="./stylesheets/style.css">
   <style>
@@ -70,7 +70,6 @@
   </p>  
 -->
   <p>
-    <button onclick="jsrunque()">example</button>
     <button onclick="jsrunout()">output</button>
     <button onclick="jsruntst()">test</button>
   </p>
@@ -87,14 +86,14 @@
         <ul class="tab-group">
             <li class="tab tab-A is-active">test</li>
             <li class="tab tab-B">output</li>
-            <li class="tab tab-C">example</li>
+
         </ul>
         
         <!--タブを切り替えて表示するコンテンツ-->
         <div class="panel-group">
             <div id="test" class="panel tab-A is-show">Content-A</div>
             <div id="output" class="panel tab-B">Content-B</div>
-            <div id="question_area" class="panel tab-C">Content-C</div>
+ 
         </div>
     </div>
 
@@ -107,7 +106,7 @@
 
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-    <category name="Logic" categorystyle="logic_category">
+    <category name="演算" categorystyle="logic_category">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
@@ -116,7 +115,7 @@
       <block type="logic_null" disabled="true"></block>
       <block type="logic_ternary"></block>
     </category>
-    <category name="Loops" categorystyle="loop_category">
+    <category name="繰り返し" categorystyle="loop_category">
       <block type="controls_repeat_ext">
         <value name="TIMES">
           <shadow type="math_number">
@@ -131,7 +130,7 @@
       <block type="controls_forEach"></block>
       <block type="controls_flow_statements"></block>
     </category>
-    <category name="Math" categorystyle="math_category">
+    <category name="数字" categorystyle="math_category">
       <block type="math_number" gap="32">
         <field name="NUM">123</field>
       </block>
@@ -232,7 +231,7 @@
         </value>
       </block>
     </category>
-    <category name="Text" categorystyle="text_category">
+    <category name="文字" categorystyle="text_category">
       <block type="text"></block>
       <block type="text_multiline"></block>
       <block type="text_join"></block>
@@ -335,7 +334,7 @@
         </value>
       </block>
     </category>
-    <category name="Lists" categorystyle="list_category">
+    <category name="配列" categorystyle="list_category">
       <block type="lists_create_with">
         <mutation items="0"></mutation>
       </block>
@@ -387,47 +386,9 @@
       <block type="lists_sort"></block>
       <block type="lists_reverse"></block>
     </category>
-    <category name="Colour" categorystyle="colour_category">
-      <block type="colour_picker"></block>
-      <block type="colour_random"></block>
-      <block type="colour_rgb">
-        <value name="RED">
-          <shadow type="math_number">
-            <field name="NUM">100</field>
-          </shadow>
-        </value>
-        <value name="GREEN">
-          <shadow type="math_number">
-            <field name="NUM">50</field>
-          </shadow>
-        </value>
-        <value name="BLUE">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="colour_blend">
-        <value name="COLOUR1">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-          </shadow>
-        </value>
-        <value name="COLOUR2">
-          <shadow type="colour_picker">
-            <field name="COLOUR">#3333ff</field>
-          </shadow>
-        </value>
-        <value name="RATIO">
-          <shadow type="math_number">
-            <field name="NUM">0.5</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
     <sep></sep>
-    <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
-    <category name="Functions" categorystyle="procedure_category" custom="PROCEDURE"></category>
+    <category name="変数" categorystyle="variable_category" custom="VARIABLE"></category>
+    <category name="関数" categorystyle="procedure_category" custom="PROCEDURE"></category>
   </xml>
 
 
