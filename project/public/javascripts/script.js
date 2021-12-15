@@ -77,56 +77,63 @@ function questionjs() {
 }
 
 //誤答した解答の説明を加える
-function gotou(saiten){
+function gotou(kaisetu){
     var hyouka ="";
-    //saiten[].lengthの回数ループする
-    for(var i=0;i<saiten.length;i++){
-        switch(saiten[i][1]){
+    //kaisetu[].lengthの回数ループする
+    if(kaisetu.length != 0){
+        hyouka += "間違いの解説：\n"
+    }
+    for(var i = 0; i < kaisetu.length; i++){
+        if(kaisetu[i] != null){
+        switch(kaisetu[i][1]){
             case "<":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0];
+                hyouka += "問目：a < b の場合、bの値を含まないbより小さい値をaがとっている場合に使うよ！\n";
                 break;
             case "<=":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：a <= bの場合、bの値を含むbより小さい値をaがとっている場合に使うよ！\n";
                 break;
             case ">":
-                hyouka += saiten[i] + "問目：a">"b の場合、bの値を含まないbより大きい値をaがとっている場合\n";
+                hyouka += kaisetu[i][0] + "問目：a > b の場合、bの値を含まないbより大きい値をaがとっている場合に使うよ！\n";
                 break;
             case ">=":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：a >= bの場合、bの値を含むnより大きい値をaがとっている場合に使うよ！\n";
                 break;
             case "==":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：a == bの場合、aの値とbの値は等しい場合に使うよ！\n";
                 break;
             case "!=":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：a != bの場合、aの値とbの値は異なる場合に使うよ！\n";
                 break;
             case "for":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：for とは条件によるループを作成する予約語だよ!\nfor(i = 1; i_inc >= 0 ? i < 10 : i > 10; i += i_inc){\n}\nfor(i=0;i<10;i++){\n}\n";
                 break;
             case "while":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：while とは条件によるループを作成する予約語だよ!\nwhile(i != 1){}\n";
                 break;
             case "do":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：do とは条件によるループを作成する予約語だよ!\ndo{\n}while(i != 1);\n";
                 break;
             case "if":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：if とは条件によって実行するかをきめる予約語だよ！\nif(a == b){}\n";
                 break;
             case "else":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：else は単体で利用せずifで条件に当てはまらない場合の分岐を増やすために利用するよ！\nif(a == b){\n}else if(a == c){\n}else{}\n";
                 break;
             case "switch":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：switch とは条件分岐をきめるための予約語だよ！\nswitch(i){\n    case 1:\n        処理1;\n        break;\n    case 2:\n        処理2;\n        break;\n    default: \n        処理3;\n}\n";
                 break;
             case "break":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：break とはループを途中で抜けるための予約語だよ！\n";
                 break;
             case "continue":
-                hyouka += saiten[i] + "問目：
+                hyouka += kaisetu[i][0] + "問目：continue とはループの処理を一度スキップするための予約語だよ！\n";
                 break;
             default:
+                hyouka += kaisetu[i][0] + "問目:は正解"
                 break;
         }
+    }
     }
         return hyouka;
 }
@@ -134,13 +141,13 @@ function gotou(saiten){
 
 
 //評価を行うcheck2(),answer2()を同時に実行し結果をどうたら　test.html
-function hyouka(){
+function saiten(){
     var hyouka1 = "";
     var hyouka2 = "";
-    var {hyouka1,saiten} = answer2();
+    var {hyouka1,kaisetu} = answer2();
     hyouka2 = check2();
-    hyouka3 = gotou(saiten);
-    document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka2;
+    hyouka3 = gotou(kaisetu);
+    document.getElementById("answer").textContent = hyouka1 + "\n" + hyouka3 + "\n" + hyouka2;
 }
 
 //check2 index.html
@@ -177,7 +184,7 @@ function numq(code1,code2){
     c2 = code2.split(' ');
 
     if(c1.length != c2.length){
-        hyouka += "回答に誤りがあり、"
+        hyouka += "回答に誤りがあります\n"
         if(c1.length > c2.length){
             hyouka += "回答が過分に存在します\n"
         }else{
@@ -187,12 +194,12 @@ function numq(code1,code2){
 
     for(var i=0; i < c2.length; i++){
         if(c1[i] != c2[i]){
-            hyouka += i+1 + "個目は間違い\n"
+            hyouka += i+1 + "個目の回答は間違い\n"
         }
     }
 
     if(c2.length < c1.length){
-        hyouka += c2.length + "以降は間違い\n"
+        hyouka += c2.length + "以降の回答がある場合間違い\n"
     }
 
     if(hyouka != ""){
@@ -459,7 +466,7 @@ function answer2(){
       idx = select.selectedIndex;
       if(select.options[idx].value == "ans"){
         //何問正解しているかを合計
-        kotae[count] =  loop+1;
+        kotae[count] =  loop+1 +"問目";
         count++;
       }else{
         ans[loop] = [loop+1,select.options[idx].text];
@@ -472,8 +479,8 @@ function answer2(){
 
   //判定結果を表示
   return {
-      hyouka1: count + "問正解\n正解した問題は:" + kotae,
-      saiten: ans
+      hyouka1: count + "問正解!\n正解した問題は:" + kotae,
+      kaisetu: ans
     };
 }
 
