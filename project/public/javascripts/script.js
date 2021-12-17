@@ -85,52 +85,52 @@ function gotou(kaisetu){
     }
     for(var i = 0; i < kaisetu.length; i++){
         if(kaisetu[i] != null){
+            hyouka += kaisetu[i][0];
         switch(kaisetu[i][1]){
             case "<":
-                hyouka += kaisetu[i][0];
                 hyouka += "問目：a < b の場合、bの値を含まないbより小さい値をaがとっている場合に使うよ！\n";
                 break;
             case "<=":
-                hyouka += kaisetu[i][0] + "問目：a <= bの場合、bの値を含むbより小さい値をaがとっている場合に使うよ！\n";
+                hyouka += "問目：a <= bの場合、bの値を含むbより小さい値をaがとっている場合に使うよ！\n";
                 break;
             case ">":
-                hyouka += kaisetu[i][0] + "問目：a > b の場合、bの値を含まないbより大きい値をaがとっている場合に使うよ！\n";
+                hyouka += "問目：a > b の場合、bの値を含まないbより大きい値をaがとっている場合に使うよ！\n";
                 break;
             case ">=":
-                hyouka += kaisetu[i][0] + "問目：a >= bの場合、bの値を含むnより大きい値をaがとっている場合に使うよ！\n";
+                hyouka +=  "問目：a >= bの場合、bの値を含むnより大きい値をaがとっている場合に使うよ！\n";
                 break;
             case "==":
-                hyouka += kaisetu[i][0] + "問目：a == bの場合、aの値とbの値は等しい場合に使うよ！\n";
+                hyouka += "問目：a == bの場合、aの値とbの値は等しい場合に使うよ！\n";
                 break;
             case "!=":
-                hyouka += kaisetu[i][0] + "問目：a != bの場合、aの値とbの値は異なる場合に使うよ！\n";
+                hyouka += "問目：a != bの場合、aの値とbの値は異なる場合に使うよ！\n";
                 break;
             case "for":
-                hyouka += kaisetu[i][0] + "問目：for とは条件によるループを作成する予約語だよ!\nfor(i = 1; i_inc >= 0 ? i < 10 : i > 10; i += i_inc){\n}\nfor(i=0;i<10;i++){\n}\n";
+                hyouka += "問目：for とは条件によるループを作成する予約語だよ!\nfor(i = 1; i_inc >= 0 ? i < 10 : i > 10; i += i_inc){\n}\nfor(i=0;i<10;i++){\n}\n";
                 break;
             case "while":
-                hyouka += kaisetu[i][0] + "問目：while とは条件によるループを作成する予約語だよ!\nwhile(i != 1){}\n";
+                hyouka += "問目：while とは条件によるループを作成する予約語だよ!\nwhile(i != 1){}\n";
                 break;
             case "do":
-                hyouka += kaisetu[i][0] + "問目：do とは条件によるループを作成する予約語だよ!\ndo{\n}while(i != 1);\n";
+                hyouka += "問目：do とは条件によるループを作成する予約語だよ!\ndo{\n}while(i != 1);\n";
                 break;
             case "if":
-                hyouka += kaisetu[i][0] + "問目：if とは条件によって実行するかをきめる予約語だよ！\nif(a == b){}\n";
+                hyouka += "問目：if とは条件によって実行するかをきめる予約語だよ！\nif(a == b){}\n";
                 break;
             case "else":
-                hyouka += kaisetu[i][0] + "問目：else は単体で利用せずifで条件に当てはまらない場合の分岐を増やすために利用するよ！\nif(a == b){\n}else if(a == c){\n}else{}\n";
+                hyouka += "問目：else は単体で利用せずifで条件に当てはまらない場合の分岐を増やすために利用するよ！\nif(a == b){\n}else if(a == c){\n}else{}\n";
                 break;
             case "switch":
-                hyouka += kaisetu[i][0] + "問目：switch とは条件分岐をきめるための予約語だよ！\nswitch(i){\n    case 1:\n        処理1;\n        break;\n    case 2:\n        処理2;\n        break;\n    default: \n        処理3;\n}\n";
+                hyouka += "問目：switch とは条件分岐をきめるための予約語だよ！\nswitch(i){\n    case 1:\n        処理1;\n        break;\n    case 2:\n        処理2;\n        break;\n    default: \n        処理3;\n}\n";
                 break;
             case "break":
-                hyouka += kaisetu[i][0] + "問目：break とはループを途中で抜けるための予約語だよ！\n";
+                hyouka += "問目：break とはループを途中で抜けるための予約語だよ！\n";
                 break;
             case "continue":
-                hyouka += kaisetu[i][0] + "問目：continue とはループの処理を一度スキップするための予約語だよ！\n";
+                hyouka += "問目：continue とはループの処理を一度スキップするための予約語だよ！\n";
                 break;
             default:
-                hyouka += kaisetu[i][0] + "問目:は正解"
+                hyouka +=  "問目:は正解"
                 break;
         }
     }
@@ -372,7 +372,8 @@ function match(code,mode,level) {
         ['alert','prompt','print'],
         ['sort','revserse','length'],
 //        ['var','const','let'],
-        ['funtion','return']
+        ['funtion','return'],
+        ['=','==','+=','-=']
     ];
 
     //ワードがマッチした場所を保存する
@@ -752,7 +753,7 @@ index3.html
 function look(){
     var code = Blockly.Xml.workspaceToDom(demoWorkspace);
     var codexml = Blockly.Xml.domToText(code);
-    document.getElementById('area').innerText = look_plus(codexml);
+    document.getElementById('area').textContent = codexml;
 }
 
 //xmlをファイルに保存する
@@ -769,7 +770,7 @@ function save() {
     // ダウンロード用のaタグ生成
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "sample.txt";
+    a.download = "question/sample.txt";
     a.click();
 }
 
