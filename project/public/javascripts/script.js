@@ -184,8 +184,8 @@ function check2(){
 //複数表示する問題の場合
 function numq(code1,code2){
     hyouka = "";
-    c1 = code1.split(' ');
-    c2 = code2.split(' ');
+    c1 = code1.split(/\s|\n/g);
+    c2 = code2.split(/\s|\n/g);
 
     if(c1.length != c2.length){
         hyouka += "回答に誤りがあります\n"
