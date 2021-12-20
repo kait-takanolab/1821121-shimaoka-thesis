@@ -105,6 +105,9 @@ function gotou(kaisetu){
             case "!=":
                 hyouka += "問目：a != bの場合、aの値とbの値は異なる場合に使うよ！\n";
                 break;
+            case "+=":
+                hyouka += "問目：a += bの場合、aの値にbの値を挿入する場合に使うよ！\n";
+                break;
             case "for":
                 hyouka += "問目：for とは条件によるループを作成する予約語だよ!\nfor(i = 1; i_inc >= 0 ? i < 10 : i > 10; i += i_inc){\n}\nfor(i=0;i<10;i++){\n}\n";
                 break;
