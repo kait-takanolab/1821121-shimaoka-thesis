@@ -373,7 +373,7 @@ function match(code,mode,level) {
         ['alert','prompt','print'],
         ['sort','revserse','length'],
 //        ['var','const','let'],
-        ['funtion','return'],
+        ['function','return'],
         ['=','==','+=','-=']
     ];
 
