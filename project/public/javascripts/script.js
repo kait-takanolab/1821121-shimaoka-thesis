@@ -175,8 +175,6 @@ function check2(){
     }else{
         if(strcode[3]=="num"){
             hyouka = numq(code1,code2);
-        }else if(strcode[3]=="if"){
-            hyouka = twice(code1,code2);
         }else{
             var hyouka = "実行結果は間違い\n";
         }
