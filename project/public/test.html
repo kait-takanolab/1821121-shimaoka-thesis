@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Blockly Demo: Generating JavaScript</title>
+  <title>鷹野研究室 島岡</title>
   <script src="./blockly/blockly_compressed.js"></script>
   <script src="./blockly/blocks_compressed.js"></script>
   <script src="./blockly/javascript_compressed.js"></script>
@@ -22,10 +22,11 @@
 </head>
 <body>
   
-  <p>code generate, run and test for JavaScript</p>
+  <p>鷹野研究室 Blocklyを活用した穴埋め問題</p>
 
 
   <p>
+    問題ファイルの読み込み<br>
     <input type="file" id="file" onclick="questionjs2()"></input>
     <button onclick="saiten()">採点</button>
 
@@ -70,13 +71,15 @@
   </p>  
 -->
   <p>
+    ソースコードの実行<br>
     <button onclick="jsrunout()">output</button>
     <button onclick="jsruntst()">test</button>
   </p>
   <p>
-    <button onclick="easy()">easy</button>
-    <button onclick="normal()">normal</button>
-    <button onclick="hard()">hard</button>
+    問題の自動生成<br>
+    <button onclick="easy()">簡単</button>
+    <button onclick="normal()">普通</button>
+    <button onclick="hard()">難しい</button>
   </p>
     
   <main>
