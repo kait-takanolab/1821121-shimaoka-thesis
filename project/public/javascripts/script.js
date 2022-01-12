@@ -371,7 +371,7 @@ function match(code,mode,level) {
         ['trim','replace','split'],
         ['textCount','textReplace'],
         ['alert','prompt','print'],
-        ['sort','revserse','length'],
+        ['sort','reverse','length'],
 //        ['var','const','let'],
         ['function','return'],
         ['=','==','+=','-=']
