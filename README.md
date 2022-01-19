@@ -23,4 +23,4 @@ https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/project/
 - https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121-shimaoka_abstract.docx
 
 ### 卒業研究発表用スライド
-- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121-shimaoka_thesis.pptx
+- https://github.com/kait-takanolab/1821121-shimaoka-thesis/blob/main/1821121_shimaoka_thesis.pptx
